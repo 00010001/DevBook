@@ -14,5 +14,7 @@ public class Message {
 
     private Date date;
     private String body;
+    private User sender;
+    private User receiver;
 
 }

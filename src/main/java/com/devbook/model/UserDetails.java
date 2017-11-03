@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDetails {
-    List<String> skills;
 
+    private List<String> skills;
 
 }

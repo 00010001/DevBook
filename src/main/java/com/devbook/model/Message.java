@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +16,6 @@ public class Message {
     private String body;
 
     private User sender;
-
     private User receiver;
 
 

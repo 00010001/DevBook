@@ -5,10 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 
-/**
- * Created by RENT on 2017-11-03.
- */
-
 @Data
 @NoArgsConstructor
 public class Role {

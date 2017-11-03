@@ -15,10 +15,14 @@ import java.util.List;
 @Service
 public class TestService {
 
-    @Autowired
     private UserRepository repository;
 
-    public void run(){
+    @Autowired
+    public TestService(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    public void run() {
         repository.deleteAll();
 
         // save a couple of customers
@@ -27,8 +31,8 @@ public class TestService {
         user.setFirstName("jasiu");
         user.setLastName("kowalski");
         List<Post> postList = new ArrayList<>();
-        postList.add(new Post(new Date(),"wiadomosc"));
-        postList.add(new Post(new Date(),"wiadomosc2"));
+        postList.add(new Post(new Date(), "wiadomosc"));
+        postList.add(new Post(new Date(), "wiadomosc2"));
 
         user.setPosts(postList);
 
@@ -40,8 +44,8 @@ public class TestService {
 
         user.setUserDetails(userDetails);
         repository.save(user);
-        repository.save(new User("Alice", "Smith","AliceSmith@gmail.com"));
-        repository.save(new User("Bob", "Smith","BobSmith@gmail.com"));
+        repository.save(new User("Alice", "Smith", "AliceSmith@gmail.com"));
+        repository.save(new User("Bob", "Smith", "BobSmith@gmail.com"));
 
         // fetch all customers
         System.out.println("Customers found with findAll():");

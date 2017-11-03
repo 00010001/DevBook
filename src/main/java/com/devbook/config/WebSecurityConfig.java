@@ -9,9 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-/**
- * Created by RENT on 2017-11-03.
- */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
@@ -39,6 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("admin1@gmail.com")
                 .password("admin1")
                 .roles("ADMIN");
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService);
     }
 }

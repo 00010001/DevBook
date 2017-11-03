@@ -40,7 +40,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
       this.email = email;
    }
 
-
    public Collection<? extends GrantedAuthority> getAuthorities() {
       return roleSet.stream().map(p-> new SimpleGrantedAuthority("ROLE_" + p.getName())).collect(Collectors.toList());
    }

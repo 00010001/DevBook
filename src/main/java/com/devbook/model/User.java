@@ -2,6 +2,8 @@ package com.devbook.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -38,6 +40,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
       this.email = email;
    }
 
+
    public Collection<? extends GrantedAuthority> getAuthorities() {
       return roleSet.stream().map(p-> new SimpleGrantedAuthority("ROLE_" + p.getName())).collect(Collectors.toList());
    }
@@ -66,5 +69,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
    public boolean isEnabled() {
       return true;
    }
+
 
 }

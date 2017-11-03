@@ -12,4 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDetails {
     List<String> skills;
+
+
 }

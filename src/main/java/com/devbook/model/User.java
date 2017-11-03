@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
+import java.util.List;
 
 
 @Data
@@ -18,6 +19,10 @@ public class User {
    private String lastName;
 
    private String email;
+
+   private UserDetails userDetails;
+
+   private List<Post> posts;
 
 
    public User(String firstName, String lastName, String email) {

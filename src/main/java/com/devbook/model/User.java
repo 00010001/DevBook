@@ -21,20 +21,16 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
    @Id
    private String _id;
-
    private String firstName;
-
    private String lastName;
-
    private String email;
-
+  
    private UserDetails userDetails;
-
    private List<Post> posts;
+   private List<Message> messages;
 
    private String password;
-
-   private Set<Role> roleSet = new HashSet<>();
+   private Set<Role> roleSet;
 
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
@@ -70,4 +66,5 @@ public class User implements org.springframework.security.core.userdetails.UserD
    public boolean isEnabled() {
       return true;
    }
+
 }

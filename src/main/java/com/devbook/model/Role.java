@@ -1,18 +1,17 @@
 package com.devbook.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-import javax.persistence.Id;
+@Getter
+public enum Role {
+    ROLE_ADMIN("ROLE_ADMIN", "This is Admin Role Description"),
+    ROLE_USER("ROLE_USER","This is User Role Description");
 
-@Data
-@NoArgsConstructor
-public class Role {
+    private String roleName;
+    private String roleDescription;
 
-    @Id
-    private String _id;
-
-    private String name;
-    private String description;
-
+    Role(String roleName, String roleDescription) {
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
+    }
 }

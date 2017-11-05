@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails {
+public class UserSkills {
 
     private List<String> skills;
 

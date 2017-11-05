@@ -8,12 +8,7 @@ public class DefaultController {
 
     @GetMapping("/")
     public String home1() {
-        return "/home";
-    }
-
-    @GetMapping("/home")
-    public String home() {
-        return "/home";
+        return "/login";
     }
 
     @GetMapping("/admin")
@@ -24,11 +19,6 @@ public class DefaultController {
     @GetMapping("/user")
     public String user() {
         return "/user";
-    }
-
-    @GetMapping("/about")
-    public String about() {
-        return "/about";
     }
 
     @GetMapping("/login")

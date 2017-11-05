@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
@@ -16,12 +17,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private AccessDeniedHandler accessDeniedHandler;
+    private AuthenticationEntryPoint authenticationEntryPoint;
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, UserDetailsService userDetailsService){
+    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, UserDetailsService userDetailsService, AuthenticationEntryPoint authenticationEntryPoint){
         this.accessDeniedHandler = accessDeniedHandler;
         this.userDetailsService = userDetailsService;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Override
@@ -29,19 +32,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/about","/addSampleData").permitAll()
+                .antMatchers("/", "/addSampleData","login?denied").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .defaultSuccessUrl("/user")
                 .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint);
     }
 
 

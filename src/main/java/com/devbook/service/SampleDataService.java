@@ -49,6 +49,7 @@ public class SampleDataService {
         user.setEmail("johnsnow@gmail.com");
         user.setPassword("0000");
         user.getRoleSet().add(Role.ROLE_USER);
+        user.setSummary("Lead programmer with a track record of incorporating user and business requirements into cost-effective, secure and user-friendly solutions known for scalability and durability.");
 
 
         List<Post> postList = new ArrayList<>();
@@ -75,7 +76,7 @@ public class SampleDataService {
         user.setEmail("ariastark@gmail.com");
         user.setPassword("0000");
         user.getRoleSet().add(Role.ROLE_ADMIN);
-
+        user.setSummary("Innovator of next-generation solutions, systems and applications giving companies a competitive edge and producing outstanding results for customers.");
 
         List<Post> postList = new ArrayList<>();
         postList.add(new Post(new Date(), "This is Aria post 1"));

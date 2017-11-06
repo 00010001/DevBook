@@ -21,6 +21,11 @@ public class DefaultController {
         return "/user";
     }
 
+    @GetMapping("/userhome")
+    public String userhome() {
+        return "/userhome";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "/login";

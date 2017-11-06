@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar">
+    <!-- this is header -->
+    <div class="navbar-nav-scroll">
+
+    <nav class="navbar navbar-dark bg-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand" th:href="@{/}">DevBook</a>
+            <a th:href="@{/logout}">Sign Out</a>
+
+        </div>
+    </nav>
+    </div>
+</div>
+</body>
+</html>

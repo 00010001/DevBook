@@ -22,6 +22,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private String firstName;
    private String lastName;
    private String email;
+   private String summary;
 
    private UserSkills userSkills;
    private List<Post> posts;

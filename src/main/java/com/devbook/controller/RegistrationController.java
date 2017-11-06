@@ -8,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-/**
- * Created by RENT on 2017-11-06.
- */
 @RestController
 public class RegistrationController {
 
-    RegistrationService registrationService;
-    UserRepository userRepository;
+    private RegistrationService registrationService;
+    private UserRepository userRepository;
 
     @Autowired
     public RegistrationController(RegistrationService registrationService, UserRepository userRepository) {
@@ -39,7 +36,7 @@ public class RegistrationController {
             user.getRoleSet().add(Role.ROLE_USER);
             userRepository.save(user);
         }
-        return new RedirectView("/");
+        return new RedirectView("/userhome");
 
     }
 

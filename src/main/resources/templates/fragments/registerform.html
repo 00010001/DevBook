@@ -7,20 +7,20 @@
 
     <br/>
 
-    <form>
+    <form th:action="@{/registration}" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="inputFirstName6" placeholder="FirstName"/>
+                <input type="text" class="form-control" id="inputFirstName6" name="inputFirstName6" placeholder="FirstName"/>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" class="form-control" id="inputLastName6" placeholder="LastName"/>
+                <input type="text" class="form-control" id="inputLastName6" name="inputLastName6" placeholder="LastName"/>
             </div>
         </div>
         <div class="form-group">
-            <input type="email" class="form-control" id="inputEmail6" placeholder="Email"/>
+            <input type="email" class="form-control" id="inputEmail6" name="inputEmail6" placeholder="Email"/>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" id="inputPassword6" placeholder="Password"/>
+            <input type="password" class="form-control" id="inputPassword6" name="inputPassword6" placeholder="Password"/>
         </div>
 
 

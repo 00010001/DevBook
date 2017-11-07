@@ -5,6 +5,7 @@ import com.devbook.model.User;
 import com.devbook.repository.UserRepository;
 import com.devbook.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -27,16 +28,11 @@ public class RegistrationController {
                              @RequestParam("inputEmail6") String email,
                              @RequestParam("inputPassword6") String password){
 
-        if(!registrationService.isEmailTaken(email)){
-            User user = new User();
-            user.setPassword(password);
-            user.setEmail(email);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.getRoleSet().add(Role.ROLE_USER);
-            userRepository.save(user);
+        if(registrationService.register(email,password,firstName,lastName)){
+            return new RedirectView("/");
         }
-        return new RedirectView("/userhome");
+        else
+            return new RedirectView("/login?emailtaken");
 
     }
 

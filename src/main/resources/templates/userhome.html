@@ -11,30 +11,26 @@
 <div th:replace="fragments/userhomenavbar :: navbar"/>
 
 <div class="container">
-
-
     <div class="row">
-        <div class="col-sm-3">
-            <div class="card">
-                <img class="card-img-top" src="/img/sampleprofilepicture.png" width="200" alt="Card image cap"/>
+        <div class="col-8">
+            <!--user header start-->
+            <div class="card mb-3">
+                <img class="card-img-top" src="https://media-exp1.licdn.com/media/AAEAAQAAAAAAAAt-AAAAJDNmZGRhOTgwLTUwMmEtNGM3My1iNTUzLTU1NzdlYTZmZjgyYQ.jpg" alt="Card image cap"/>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <span th:text="${#authentication.getPrincipal().getFirstName()}"></span>
-                        <br/>
-                        <span th:text="${#authentication.getPrincipal().getLastName()}"></span>
+                        <span th:text="${#authentication.getPrincipal().getFirstName()}"> </span>
+                        <span th:text="${#authentication.getPrincipal().getLastName()}"> </span>
+                        <span style="color:#007bff"> - currently looking for Java Job </span>
                     </h4>
-                    <p class="card-text">Innovator of next-generation solutions, systems and applications giving
-                        companies a competitive edge and producing outstanding results for customers.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">
+                        <span th:text="${#authentication.getPrincipal().getSummary()}"></span>
+                    </p>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-6">
-
+            <!--user header end-->
+            <!--Post TextField Start-->
             <br/>
 
-            <!--Post TextField Start-->
             <form>
                 <div class="form-group">
                     <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Co slychac first name?" rows="3"></textarea>
@@ -90,24 +86,39 @@
             <br/>
 
             <!--Post end-->
-
-
         </div>
-        <div class="col-sm-3">
+        <div class="col-4">
+
+            <!--Skills start-->
+            <br/>
+            <h3>My Skills</h3>
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Java</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Maven, Spring, Hibernate</h6>
+                    <h4 class="card-title">Frontend</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Angular, HTML, CSS</h6>
+                </div>
+            </div>
+            <!--Skills end-->
+
+
+            <!--SideMenu start-->
+            <br/>
+            <h3>Actions</h3>
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Java
+                    <a href="#">Messages</a>
                     <span class="badge badge-primary badge-pill">14</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Css
-                    <span class="badge badge-primary badge-pill">2</span>
+                    <a href="#">Edit Profile</a>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Html
-                    <span class="badge badge-primary badge-pill">1</span>
+                    <a href="#">Friends</a>
                 </li>
             </ul>
+            <!--SideMenu end-->
         </div>
 
     </div>

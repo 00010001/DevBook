@@ -49,7 +49,12 @@ public class SampleDataService {
         user.setEmail("johnsnow@gmail.com");
         user.setPassword("0000");
         user.getRoleSet().add(Role.ROLE_USER);
-        user.setSummary("Lead programmer with a track record of incorporating user and business requirements into cost-effective, secure and user-friendly solutions known for scalability and durability.");
+        user.setSummary("Currently enrolled in Java Coding Bootcamp \n" +
+                "at Software Development Academy in Katowice\n" +
+                "which I will finish in November 2017. \n" +
+                "Expierienced with web development process. \n" +
+                "Able to work well independently or as part \n" +
+                "of a professional development team.");
 
 
         List<Post> postList = new ArrayList<>();
@@ -57,13 +62,12 @@ public class SampleDataService {
         postList.add(new Post(new Date(), "This is post 2"));
         user.setPosts(postList);
 
-        UserSkills userSkills = new UserSkills();
-        List<String> skills = new ArrayList<>();
-        skills.add("Html");
-        skills.add("JavaScript");
-        skills.add("Css");
-        userSkills.setSkills(skills);
-        user.setUserSkills(userSkills);
+
+        List<Skill> userSkills = new ArrayList<>();
+        userSkills.add(new Skill("Java","Maven, Hibernate, Spring"));
+        userSkills.add(new Skill("Frontend","Angular, HTML, CSS"));
+        userSkills.add(new Skill("TDD","Junit, Mockito"));
+        user.setSkills(userSkills);
 
         return user;
     }
@@ -83,13 +87,11 @@ public class SampleDataService {
         postList.add(new Post(new Date(), "This is Aria post 2"));
         user.setPosts(postList);
 
-        UserSkills userSkills = new UserSkills();
-        List<String> skills = new ArrayList<>();
-        skills.add("Java");
-        skills.add("Maven");
-        skills.add("Spring");
-        userSkills.setSkills(skills);
-        user.setUserSkills(userSkills);
+        List<Skill> userSkills = new ArrayList<>();
+        userSkills.add(new Skill("Java","Maven, Hibernate, Spring"));
+        userSkills.add(new Skill("Frontend","Angular, HTML, CSS"));
+        userSkills.add(new Skill("TDD","Junit, Mockito"));
+        user.setSkills(userSkills);
 
         return user;
     }

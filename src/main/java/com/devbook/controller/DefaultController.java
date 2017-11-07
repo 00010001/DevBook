@@ -21,6 +21,11 @@ public class DefaultController {
         return "/user";
     }
 
+    @GetMapping("/usereditor")
+    public String usereditor() {
+        return "/usereditor";
+    }
+
     @GetMapping("/userhome")
     public String userhome() {
         return "/userhome";

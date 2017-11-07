@@ -14,7 +14,6 @@ public class RegistrationController {
 
     private RegistrationService registrationService;
 
-
     @Autowired
     public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
@@ -28,7 +27,7 @@ public class RegistrationController {
                              @RequestParam("inputPassword6") String password){
 
         if(registrationService.register(email,password,firstName,lastName)){
-            return new RedirectView("/");
+            return new RedirectView("/userhome");
         }
         else
             return new RedirectView("/login?emailtaken");

@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 @Data
 @NoArgsConstructor
 public class User implements org.springframework.security.core.userdetails.UserDetails{
+
+   //TODO move user security details to another class
 
    @Id
    private String _id;
@@ -33,7 +34,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private String password;
    private Set<Role> roleSet = new HashSet<>();
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+   public Collection<? extends GrantedAuthority> getAuthorities() {
       return roleSet.stream().map(p-> new SimpleGrantedAuthority(p.getRoleName())).collect(Collectors.toList());
    }
 

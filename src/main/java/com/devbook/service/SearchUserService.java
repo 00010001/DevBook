@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by RENT on 2017-11-07.
- */
 @Service
 public class SearchUserService {
 
     private UserRepository userRepository;
+
+    //TODO ignore case when search
 
     @Autowired
     public SearchUserService(UserRepository userRepository) {
@@ -23,7 +22,7 @@ public class SearchUserService {
     }
 
     public List<User> searchQueryFromUsers(String searchQuery) {
-        List<User> searchUserList = new ArrayList<>();
+        List<User> searchUserList;
         String[] words = searchQuery.split("\\s");
         searchUserList = userRepository.findAll().stream().filter(user->{
             for (String word : words) {

@@ -12,11 +12,9 @@ import java.util.Date;
 public class Message {
 
     private Date date;
-
     private String body;
-
+    private boolean messageOpened;
     private User sender;
     private User receiver;
-
 
 }

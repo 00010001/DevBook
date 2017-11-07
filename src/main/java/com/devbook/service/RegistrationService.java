@@ -4,27 +4,32 @@ import com.devbook.model.Role;
 import com.devbook.model.User;
 import com.devbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.view.RedirectView;
 
-/**
- * Created by RENT on 2017-11-06.
- */
+import javax.servlet.http.HttpServletRequest;
+
+
 @Service
 public class RegistrationService {
 
     private UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public RegistrationService(UserRepository userRepository) {
+    public RegistrationService(UserRepository userRepository, @Qualifier("authenticationManager") AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
     }
 
     private boolean isEmailTaken(String email){
-        if(userRepository.findByEmail(email) != null){
-            return true;
-        }
-        return false;
+        return userRepository.findByEmail(email) != null;
     }
 
     public boolean register(String email, String password, String firstName, String lastName) {
@@ -41,6 +46,17 @@ public class RegistrationService {
         else {
             return false;
         }
+    }
 
+    public void autoLogin(String username, String password, HttpServletRequest request){
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        request.getSession();
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authenticatedUser = authenticationManager.authenticate(token);// authenticates the token
+        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+        request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());// creates context for that session.
+            //set necessary details in session
+        request.getSession().setAttribute("username", username);
+        request.getSession().setAttribute("authorities", token.getAuthorities());
     }
 }

@@ -13,12 +13,10 @@ import org.springframework.web.servlet.view.RedirectView;
 public class RegistrationController {
 
     private RegistrationService registrationService;
-    private UserRepository userRepository;
 
     @Autowired
-    public RegistrationController(RegistrationService registrationService, UserRepository userRepository) {
+    public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
-        this.userRepository = userRepository;
     }
 
     @RequestMapping(value="/registration", method = RequestMethod.POST)
@@ -29,7 +27,7 @@ public class RegistrationController {
                              @RequestParam("inputPassword6") String password){
 
         if(registrationService.register(email,password,firstName,lastName)){
-            return new RedirectView("/");
+            return new RedirectView("/userhome");
         }
         else
             return new RedirectView("/login?emailtaken");

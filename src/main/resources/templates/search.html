@@ -1,4 +1,9 @@
 <!DOCTYPE HTML>
+<style>
+    .user-list{
+        color:red;
+    }
+</style>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>DevBook</title>
@@ -19,6 +24,17 @@
         <h5>2. Visit <a th:href="@{/user}">User page (Spring Security protected, Need User Role)</a></h5>
         <h5>3. Visit <a th:href="@{/about}">Normal page</a></h5>
     </div>
+
+    <div class="user-list">
+        <tr th:each="user : ${userList}">
+            <a th:href="${user.get_id()}">
+                <td th:text="${user.getFirstName()}" ></td>
+                <td th:text="${user.getLastName()}" ></td>
+            </a>
+        </tr>
+    </div>
+
+
 
 
 

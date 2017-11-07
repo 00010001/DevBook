@@ -18,7 +18,11 @@
             <div class="card">
                 <img class="card-img-top" src="/img/sampleprofilepicture.png" width="200" alt="Card image cap"/>
                 <div class="card-body">
-                    <h4 class="card-title">First Name <br/> Last Name</h4>
+                    <h4 class="card-title">
+                        <span th:text="${#authentication.getPrincipal().getFirstName()}"></span>
+                        <br/>
+                        <span th:text="${#authentication.getPrincipal().getLastName()}"></span>
+                    </h4>
                     <p class="card-text">Innovator of next-generation solutions, systems and applications giving
                         companies a competitive edge and producing outstanding results for customers.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>

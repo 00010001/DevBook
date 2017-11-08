@@ -31,10 +31,12 @@
             <!--Post TextField Start-->
             <br/>
 
-            <form>
+            <form th:action="@{/api/post}" method="post">
                 <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Co slychac first name?" rows="3"></textarea>
+                    type="hidden" _id
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" placeholder="Co slychac first name?" rows="3" required="true"></textarea>
                 </div>
+
                 <button type="button" class="btn btn-secondary btn-lg">Post</button>
             </form>
             <!--Post TextField End-->

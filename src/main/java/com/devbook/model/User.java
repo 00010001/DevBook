@@ -4,16 +4,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Id;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
+@Transactional
 public class User implements org.springframework.security.core.userdetails.UserDetails{
 
    //TODO move user security details to another class
@@ -36,6 +35,10 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
    public Collection<? extends GrantedAuthority> getAuthorities() {
       return roleSet.stream().map(p-> new SimpleGrantedAuthority(p.getRoleName())).collect(Collectors.toList());
+   }
+
+   public void addPostToUserPostList(Post post){
+      posts.add(post);
    }
 
    @Override

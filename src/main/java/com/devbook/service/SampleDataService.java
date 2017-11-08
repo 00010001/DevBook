@@ -58,8 +58,8 @@ public class SampleDataService {
 
 
         List<Post> postList = new ArrayList<>();
-        postList.add(new Post(new Date(), "This is post 1"));
-        postList.add(new Post(new Date(), "This is post 2"));
+//        postList.add(new Post(new Date(), "This is post 1"));
+//        postList.add(new Post(new Date(), "This is post 2"));
         user.setPosts(postList);
 
 
@@ -83,8 +83,8 @@ public class SampleDataService {
         user.setSummary("Innovator of next-generation solutions, systems and applications giving companies a competitive edge and producing outstanding results for customers.");
 
         List<Post> postList = new ArrayList<>();
-        postList.add(new Post(new Date(), "This is Aria post 1"));
-        postList.add(new Post(new Date(), "This is Aria post 2"));
+//        postList.add(new Post(new Date(), "This is Aria post 1"));
+//        postList.add(new Post(new Date(), "This is Aria post 2"));
         user.setPosts(postList);
 
         List<Skill> userSkills = new ArrayList<>();

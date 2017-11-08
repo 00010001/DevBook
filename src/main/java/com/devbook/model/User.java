@@ -31,6 +31,9 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private List<Post> posts;
    private List<Message> messages;
 
+   private List<Friend> friendsList;
+   private List<FriendRequest> friendRequestsList;
+
    private String password;
    private Set<Role> roleSet = new HashSet<>();
 

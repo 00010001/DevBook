@@ -1,6 +1,7 @@
 package com.devbook.controller;
 
 import com.devbook.model.Post;
+import com.devbook.model.User;
 import com.devbook.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -26,15 +27,17 @@ public class PostController {
     }
 
 
-//    @RequestMapping(value = "api/post", method = RequestMethod.POST)
-//    public ModelAndView searchUsers(@RequestParam("exampleFormControlTextarea1") String postBody,
-//                                    Model model){
-//
-//        List<Post> postList = postService.addPost(postBody);
-//        model.addAttribute("postList", postList);
-//
-//        return new ModelAndView("userhome");
-//    }
+    @RequestMapping(value = "/api/post", method = RequestMethod.POST)
+    public ModelAndView searchUsers(@RequestParam("exampleFormControlTextarea1") String postBody,
+                                    @RequestParam("UserId") String userId,
+                                    Model model){
+
+        List<Post> postList = postService.addPost(postBody, userId);
+
+        model.addAttribute("postList", postList);
+
+        return new ModelAndView("userhome");
+    }
 
 
 

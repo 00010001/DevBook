@@ -33,23 +33,26 @@
 
             <form th:action="@{/api/post}" method="post">
                 <div class="form-group">
-                    type="hidden" _id
+                    <input type="hidden" name="UserId" th:value="${#authentication.getPrincipal().get_id()}"></input>
                     <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" placeholder="Co slychac first name?" rows="3" required="true"></textarea>
                 </div>
 
-                <button type="button" class="btn btn-secondary btn-lg">Post</button>
+                <button type="submit" class="btn btn-secondary btn-lg">Post</button>
             </form>
             <!--Post TextField End-->
             <!--Post Start-->
 
             <br/>
 
+
+
             <div class="card text-center">
-                <div class="card-body">
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <div th:each="post : ${postList}" class="card-body">
+                        <span th:text="${post.getBody()}" ></span>
+                        <p class="card-text"> </p>
                 </div>
                 <div class="card-footer text-muted">
-                    2 days ago
+                    <span th:text="${post == null ? '' : post.getLocalDateTime}">post.getLocalDateTime</span>
                 </div>
             </div>
 

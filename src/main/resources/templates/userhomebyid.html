@@ -22,19 +22,24 @@
                         <span th:text="${user.getLastName()}"> </span>
                         <span style="color:#007bff"> - currently looking for Java Job </span>
                     </h4>
+                    <p class="card-text">
+                        <span th:text="${user.getSummary()}"></span>
+                    </p>
+                    <span th:text="${#authentication.getPrincipal().get_id()}"> </span>
+                    <span th:text="${user.get_id()}"> </span>
+
+
+
+                    <form th:action="@{/addToFriends}" method="post">
+                        <input type="hidden" id="originUserId" name="originUserId" th:value="${#authentication.getPrincipal().get_id()}"/>
+                        <input type="hidden" id="targetUserId" name="targetUserId" th:value="${user.get_id()}"/>
+
+                        <button type="submit" class="btn btn-primary btn-sm">Send Friend Request</button>
+                    </form>
                 </div>
             </div>
             <!--user header end-->
-            <!--Post TextField Start-->
-            <br/>
 
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Co slychac first name?" rows="3"></textarea>
-                </div>
-                <button type="button" class="btn btn-secondary btn-lg">Post</button>
-            </form>
-            <!--Post TextField End-->
             <!--Post Start-->
 
             <br/>

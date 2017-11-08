@@ -69,6 +69,11 @@ public class SampleDataService {
         userSkills.add(new Skill("TDD","Junit, Mockito"));
         user.setSkills(userSkills);
 
+        List<FriendRequest> friendRequestList = new ArrayList<>();
+        friendRequestList.add(new FriendRequest("a","b"));
+        friendRequestList.add(new FriendRequest("a2","b2"));
+        user.setFriendRequestsList(friendRequestList);
+
         return user;
     }
 

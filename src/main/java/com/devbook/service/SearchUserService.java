@@ -14,8 +14,6 @@ public class SearchUserService {
 
     private UserRepository userRepository;
 
-    //TODO ignore case when search
-
     @Autowired
     public SearchUserService(UserRepository userRepository) {
         this.userRepository = userRepository;

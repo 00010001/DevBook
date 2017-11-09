@@ -12,10 +12,22 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8">
+
+        <div class="col-2">
+
+            <div class="card">
+                <img class="card-img-top" th:src="${user.getProfileImageUrl()}" alt="User Profile Picture"/>
+            </div>
+
+
+            <div th:replace="fragments/sidemenu :: sidemenu"/>
+        </div>
+
+
+        <div class="col-6">
             <!--user header start-->
             <div class="card mb-3">
-                <img class="card-img-top" src="https://media-exp1.licdn.com/media/AAEAAQAAAAAAAAt-AAAAJDNmZGRhOTgwLTUwMmEtNGM3My1iNTUzLTU1NzdlYTZmZjgyYQ.jpg" alt="Card image cap"/>
+                <img class="card-img-top" th:src="${user.getHeaderImageUrl()}" alt="Card image cap"/>
                 <div class="card-body">
                     <h4 class="card-title">
                         <span th:text="${user.getFirstName()}"> </span>
@@ -92,7 +104,6 @@
             <!--Skills end-->
 
 
-            <div th:replace="fragments/sidemenu :: sidemenu"/>
 
         </div>
 

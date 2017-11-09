@@ -23,12 +23,14 @@ public class UserService {
         return userRepository.findByEmail(currentPrincipalEmail);
     }
 
-    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus) {
+    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus, String headerImageUrl, String profileImageUrl) {
         User user = this.getCurrentlyLoggedUser();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setSummary(summary);
         user.setCurrentStatus(currentstatus);
+        user.setHeaderImageUrl(headerImageUrl);
+        user.setProfileImageUrl(profileImageUrl);
         userRepository.save(user);
     }
 }

@@ -35,16 +35,30 @@
                         <textarea class="form-control" name="summary" id="summary" rows="3"><span th:remove="tag"
                                                                                                   th:text="${user.getSummary()}"></span></textarea>
                     </div>
-                </div>
+            </div>
+
             <div class="form-group row">
-
-
                     <label for="currentstatus" class="col-sm-2 col-form-label">Current Status</label>
                     <div class="col-sm-10">
-
                         <input type="text" class="form-control" name="currentstatus" id="currentstatus"
                                th:attr="value=${user.getCurrentStatus()}"/>
                     </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="headerImageUrl" class="col-sm-2 col-form-label">Header Image Url</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="headerImageUrl" id="headerImageUrl"
+                           th:attr="value=${user.getHeaderImageUrl()}"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="profileImageUrl" class="col-sm-2 col-form-label">Profile Image Url</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="profileImageUrl" id="profileImageUrl"
+                           th:attr="value=${user.getProfileImageUrl()}"/>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>

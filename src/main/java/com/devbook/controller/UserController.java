@@ -97,10 +97,12 @@ public class UserController {
     public RedirectView updateprofile(@RequestParam("firstname") String firstName,
                                       @RequestParam("lastname") String lastName,
                                       @RequestParam("summary") String summary,
-                                      @RequestParam("currentstatus") String currentStatus) {
+                                      @RequestParam("currentstatus") String currentStatus,
+                                      @RequestParam("headerImageUrl") String headerImageUrl,
+                                      @RequestParam("profileImageUrl") String profileImageUrl) {
 
 
-        userService.updateCurrentUserProfile(firstName,lastName,summary,currentStatus);
+        userService.updateCurrentUserProfile(firstName,lastName,summary,currentStatus, headerImageUrl, profileImageUrl);
         return new RedirectView("/user");
     }
 

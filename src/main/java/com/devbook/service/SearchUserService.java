@@ -2,6 +2,7 @@ package com.devbook.service;
 
 import com.devbook.model.User;
 import com.devbook.repository.UserRepository;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class SearchUserService {
 
     private UserRepository userRepository;
 
-    @Autowired
+    @Autowired()
     public SearchUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -24,7 +25,7 @@ public class SearchUserService {
         String[] words = searchQuery.split("\\s");
         searchUserList = userRepository.findAll().stream().filter(user->{
             for (String word : words) {
-                if ( word.equals(user.getFirstName())||word.equals(user.getLastName())){
+                if ( word.equalsIgnoreCase(user.getFirstName())||word.equalsIgnoreCase(user.getLastName().toLowerCase())){
                     return true;
                 }
             }

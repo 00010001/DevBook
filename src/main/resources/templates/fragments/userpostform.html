@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userpostform">
+    <!--userposts start-->
+    <div th:if="${user.get_id()} == ${#authentication.getPrincipal().get_id()}">
+        <br/>
+
+        <form th:action="@{/user/addpost}" method="post">
+            <div class="form-group">
+                <input type="hidden" name="userId" th:value="${#authentication.getPrincipal().get_id()}"/>
+                <textarea class="form-control" id="postBody" name="postBody" placeholder="How are you?" rows="3" required="true"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-secondary btn-lg">Post</button>
+        </form>
+    </div>
+    <!--userposts end-->
+</div>
+
+</body>
+</html>

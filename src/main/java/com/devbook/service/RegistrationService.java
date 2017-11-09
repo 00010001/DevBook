@@ -40,6 +40,8 @@ public class RegistrationService {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.getRoleSet().add(Role.ROLE_USER);
+            user.setHeaderImageUrl("http://knowledgeoverflow.com/wp-content/uploads/2013/03/graphic-15.jpg");
+            user.setProfileImageUrl("http://www.racialjusticenetwork.co.uk/wp-content/uploads/2016/12/default-profile-picture.png");
             userRepository.save(user);
             return true;
         }

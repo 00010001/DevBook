@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userprofileimage">
+    <!--user profile image start-->
+    <div class="card">
+        <img class="card-img-top" th:src="${user.getProfileImageUrl()}"/>
+    </div>
+    <!--user profile image end-->
+</div>
+
+</body>
+</html>

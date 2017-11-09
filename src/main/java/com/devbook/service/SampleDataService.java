@@ -72,8 +72,8 @@ public class SampleDataService {
         user.setSkills(userSkills);
 
         List<FriendRequest> friendRequestList = new ArrayList<>();
-        friendRequestList.add(new FriendRequest("a","b"));
-        friendRequestList.add(new FriendRequest("a2","b2"));
+        FriendRequest friendRequest = new FriendRequest("0","0");
+        friendRequest.setOriginUserProfileImageUrl("http://www.racialjusticenetwork.co.uk/wp-content/uploads/2016/12/default-profile-picture.png");
         user.setFriendRequestsList(friendRequestList);
 
         return user;

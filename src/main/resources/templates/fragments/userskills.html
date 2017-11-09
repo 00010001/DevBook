@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userskills">
+    <!--Skills start-->
+    <br/>
+    <h3>My Skills</h3>
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <div th:each="skill : ${user.getSkills()}">
+                <h4 class="card-title" th:text="${skill.getSkillName()}"></h4>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${skill.getSkillDescription()}"></h6>
+            </div>
+        </div>
+    </div>
+    <!--Skills end-->
+</div>
+
+</body>
+</html>

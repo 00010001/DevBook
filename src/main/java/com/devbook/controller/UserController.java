@@ -39,6 +39,9 @@ public class UserController {
         this.postService = postService;
     }
 
+
+    // TODO w adminie wszyscy userzy + opcje filtrowania to co jest teraz to ma byc ponizej w user/id
+
     @GetMapping("/user")
     public RedirectView homeWhenViewingLoggedUser() {
         String userId = userService.getCurrentlyLoggedUser().get_id();
@@ -53,13 +56,7 @@ public class UserController {
         return new ModelAndView("home");
     }
 
-    @GetMapping("/user/friendrequests")
-    public ModelAndView userFriendRequests(Model model) {
-
-        List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
-        model.addAttribute("friendRequestsList", friendRequestList);
-        return new ModelAndView("userfriendrequests");
-    }
+    //TODO addpost to bedzie /user/post z metoda post
 
     @PostMapping("/user/addpost")
     public RedirectView searchUsers(@RequestParam("postBody") String postBody,
@@ -69,6 +66,16 @@ public class UserController {
         return new RedirectView(userId);
     }
 
+    @GetMapping("/user/friendrequests")
+    public ModelAndView userFriendRequests(Model model) {
+
+        List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
+        model.addAttribute("friendRequestsList", friendRequestList);
+        return new ModelAndView("userfriendrequests");
+    }
+
+    // TODO "/user/friendrequests" z postem
+
     @PostMapping("user/addToFriends")
     public RedirectView addToFriend(
             @RequestParam("originUserId") String originUserId,
@@ -77,6 +84,8 @@ public class UserController {
         addToFriendsService.sendFriendRequest(originUserId, targetUserId);
         return new RedirectView("/user");
     }
+
+    // TODO POST user/friend akceptowanie friend requestu
 
     @PostMapping("user/acceptFriendRequest")
     public RedirectView acceptFriendRequest(
@@ -92,6 +101,8 @@ public class UserController {
         model.addAttribute("user", user);
         return new ModelAndView("usereditprofile");
     }
+
+    //TODO /user put -> put to znaczy update
 
     @PostMapping("user/updateprofile")
     public RedirectView updateprofile(@RequestParam("firstname") String firstName,

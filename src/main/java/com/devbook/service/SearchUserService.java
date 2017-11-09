@@ -1,5 +1,6 @@
 package com.devbook.service;
 
+import com.devbook.model.Levenshtein;
 import com.devbook.model.User;
 import com.devbook.repository.UserRepository;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap;
@@ -20,12 +21,16 @@ public class SearchUserService {
         this.userRepository = userRepository;
     }
 
+
+
     public List<User> searchQueryFromUsers(String searchQuery) {
         List<User> searchUserList;
         String[] words = searchQuery.split("\\s");
         searchUserList = userRepository.findAll().stream().filter(user->{
             for (String word : words) {
-                if ( word.equalsIgnoreCase(user.getFirstName())||word.equalsIgnoreCase(user.getLastName().toLowerCase())){
+
+                if (word.equalsIgnoreCase(user.getFirstName())||word.equalsIgnoreCase(user.getLastName().toLowerCase())
+                        || Levenshtein.distance(word,user.getFirstName())<2||Levenshtein.distance(word,user.getLastName())<2){
                     return true;
                 }
             }

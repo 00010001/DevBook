@@ -50,12 +50,21 @@ public class RegistrationService {
 
     public void autoLogin(String username, String password, HttpServletRequest request){
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        request.getSession();
         token.setDetails(new WebAuthenticationDetails(request));
+
+        authenticateUser(token);
+        setDetailsInSession(username, request, token);
+
+    }
+
+    private void authenticateUser(UsernamePasswordAuthenticationToken token){
         Authentication authenticatedUser = authenticationManager.authenticate(token);// authenticates the token
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+    }
+
+    private void setDetailsInSession(String username, HttpServletRequest request, UsernamePasswordAuthenticationToken token){
+        request.getSession();
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());// creates context for that session.
-            //set necessary details in session
         request.getSession().setAttribute("username", username);
         request.getSession().setAttribute("authorities", token.getAuthorities());
     }

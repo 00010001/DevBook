@@ -16,7 +16,7 @@
         <div class="col-2">
 
             <div class="card">
-                <img class="card-img-top" th:src="${user.getProfileImageUrl()}" alt="User Profile Picture"/>
+                <img class="card-img-top" th:src="${user.getProfileImageUrl() == null ? 'http://www.racialjusticenetwork.co.uk/wp-content/uploads/2016/12/default-profile-picture.png' :user.getProfileImageUrl()}"/>
             </div>
 
 
@@ -27,7 +27,7 @@
         <div class="col-6">
             <!--user header start-->
             <div class="card mb-3">
-                <img class="card-img-top" th:src="${user.getHeaderImageUrl()}" alt="Card image cap"/>
+                <img class="card-img-top" th:src="${user.getHeaderImageUrl() == null ? 'http://knowledgeoverflow.com/wp-content/uploads/2013/03/graphic-15.jpg' :user.getHeaderImageUrl()}"/>
                 <div class="card-body">
                     <h4 class="card-title">
                         <span th:text="${user.getFirstName()}"> </span>

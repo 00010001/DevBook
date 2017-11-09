@@ -3,13 +3,11 @@ package com.devbook.service;
 import com.devbook.model.Friend;
 import com.devbook.model.FriendRequest;
 import com.devbook.model.User;
-import com.devbook.service.UserUtils;
 import com.devbook.repository.FriendRequestRepository;
 import com.devbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,9 +28,7 @@ public class AddToFriendsService {
 
         FriendRequest friendRequest = new FriendRequest(originUserId,targetUserId);
         User targetUser = userRepository.findBy_id(targetUserId);
-
-        UserUtils.checkIfUserFriendRequestsListIsNull(targetUser);
-
+        friendRequest.setOriginUserProfileImageUrl(userRepository.findBy_id(originUserId).getProfileImageUrl());
         targetUser.getFriendRequestsList().add(friendRequest);
         userRepository.save(targetUser);
         friendRequestRepository.save(friendRequest);
@@ -42,9 +38,7 @@ public class AddToFriendsService {
         FriendRequest friendRequest = friendRequestRepository.findBy_id(friendRequestId);
 
         User targetUser = userRepository.findBy_id(friendRequest.getTargetUserId());
-        UserUtils.checkIfUserFriendListIsNull(targetUser);
         User originUser = userRepository.findBy_id(friendRequest.getOriginUserId());
-        UserUtils.checkIfUserFriendListIsNull(originUser);
 
         originUser.getFriendsList().add(new Friend(targetUser.get_id()));
         targetUser.getFriendsList().add(new Friend(originUser.get_id()));

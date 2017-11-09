@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userposts">
+    <!--userposts start-->
+    <div th:each="post : ${postList}">
+        <br/>
+
+        <div  class="card text-center">
+            <div class="card-body">
+                <p class="card-text" th:text="${post.getBody()}"></p>
+            </div>
+            <div class="card-footer text-muted">
+                <span th:text="${post == null ? '' : post.getDateString()}"></span>
+            </div>
+        </div>
+
+        <br/>
+    </div>
+    <!--userposts end-->
+</div>
+
+</body>
+</html>

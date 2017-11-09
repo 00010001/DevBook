@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userheader">
+    <!--user header start-->
+    <div class="card mb-3">
+        <img class="card-img-top" th:src="${user.getHeaderImageUrl()}"/>
+        <div class="card-body">
+            <h4 class="card-title">
+                <span th:text="${user.getFirstName()}"> </span>
+                <span th:text="${user.getLastName()}"> </span>
+                <span th:text="${user.getCurrentStatus()}" style="color:#007bff"></span>
+            </h4>
+            <p class="card-text">
+                <span th:text="${user.getSummary()}"></span>
+            <div th:if="${user.get_id()} != ${#authentication.getPrincipal().get_id()}">
+
+                <form th:action="@{/user/addToFriends}" method="post">
+                    <input type="hidden" id="originUserId" name="originUserId" th:value="${#authentication.getPrincipal().get_id()}"/>
+                    <input type="hidden" id="targetUserId" name="targetUserId" th:value="${user.get_id()}"/>
+
+                    <button type="submit" class="btn btn-primary btn-sm">Send Friend Request</button>
+                </form>
+
+            </div>
+
+            </p>
+        </div>
+    </div>
+    <!--user header end-->
+</div>
+
+</body>
+</html>

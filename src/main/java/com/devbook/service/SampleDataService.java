@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +31,7 @@ public class SampleDataService {
     private void addSampleUsers() {
         User user1 = generateUser1();
         User user2 = generateUser2();
+
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -60,13 +60,15 @@ public class SampleDataService {
         List<Post> postList = new ArrayList<>();
 //        postList.add(new Post(new Date(), "This is post 1"));
 //        postList.add(new Post(new Date(), "This is post 2"));
-        user.setPosts(postList);
+        user.setPostList(postList);
 
 
         List<Skill> userSkills = new ArrayList<>();
         userSkills.add(new Skill("Java","Maven, Hibernate, Spring"));
         userSkills.add(new Skill("Frontend","Angular, HTML, CSS"));
         userSkills.add(new Skill("TDD","Junit, Mockito"));
+
+
         user.setSkills(userSkills);
 
         List<FriendRequest> friendRequestList = new ArrayList<>();
@@ -90,7 +92,7 @@ public class SampleDataService {
         List<Post> postList = new ArrayList<>();
 //        postList.add(new Post(new Date(), "This is Aria post 1"));
 //        postList.add(new Post(new Date(), "This is Aria post 2"));
-        user.setPosts(postList);
+        user.setPostList(postList);
 
         List<Skill> userSkills = new ArrayList<>();
         userSkills.add(new Skill("Java","Maven, Hibernate, Spring"));

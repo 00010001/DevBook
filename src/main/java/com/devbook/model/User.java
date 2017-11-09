@@ -26,22 +26,18 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private String currentStatus;
    private String userImageUrl;
 
-   private List<Skill> skills;
-   private List<Post> posts;
-   private List<Message> messages;
+   private List<Skill> skills = new ArrayList<>();
+   private List<Post> postList = new ArrayList<>();
+   private List<Message> messages = new ArrayList<>();
 
-   private List<Friend> friendsList;
-   private List<FriendRequest> friendRequestsList;
+   private List<Friend> friendsList = new ArrayList<>();
+   private List<FriendRequest> friendRequestsList = new ArrayList<>();
 
    private String password;
    private Set<Role> roleSet = new HashSet<>();
 
    public Collection<? extends GrantedAuthority> getAuthorities() {
       return roleSet.stream().map(p-> new SimpleGrantedAuthority(p.getRoleName())).collect(Collectors.toList());
-   }
-
-   public void addPostToUserPostList(Post post){
-      posts.add(post);
    }
 
    @Override

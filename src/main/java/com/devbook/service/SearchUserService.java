@@ -34,6 +34,8 @@ public class SearchUserService {
     }
 
     public User findById(String id) {
-        return userRepository.findBy_id(id);
+        User user = userRepository.findBy_id(id);
+        System.out.println(user.getPostList());
+        return user;
     }
 }

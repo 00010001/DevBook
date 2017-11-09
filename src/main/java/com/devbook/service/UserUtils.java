@@ -1,8 +1,13 @@
-package com.devbook.model;
+package com.devbook.service;
+
+import com.devbook.model.User;
+import com.devbook.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
 public class UserUtils {
+
 
     public static void checkIfUserFriendListIsNull(User user){
         if(user.getFriendsList() == null){

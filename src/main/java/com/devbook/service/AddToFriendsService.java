@@ -3,7 +3,7 @@ package com.devbook.service;
 import com.devbook.model.Friend;
 import com.devbook.model.FriendRequest;
 import com.devbook.model.User;
-import com.devbook.model.UserUtils;
+import com.devbook.service.UserUtils;
 import com.devbook.repository.FriendRequestRepository;
 import com.devbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

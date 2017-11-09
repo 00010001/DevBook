@@ -21,7 +21,7 @@
 
     <div class="user-list">
         <tr th:each="user : ${userList}">
-            <a th:href="${user.get_id()}">
+            <a th:href="'user/'+${user.get_id()}">
                 <td th:text="${user.getFirstName()}" ></td>
                 <td th:text="${user.getLastName()}" ></td>
             </a>

@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="sidemenu">
+    <!--SideMenu start-->
+    <br/>
+    <h3>Actions</h3>
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#">Messages</a>
+            <span class="badge badge-primary badge-pill">14</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a th:href="@{/user/edit}">Edit Profile</a>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a th:href="@{/user/friendrequests}">Friends Requests</a>
+            <span class="badge badge-primary badge-pill">14</span>
+        </li>
+    </ul>
+    <!--SideMenu end-->
+</div>
+
+</body>
+</html>

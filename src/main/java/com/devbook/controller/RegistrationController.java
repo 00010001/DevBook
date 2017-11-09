@@ -27,7 +27,7 @@ public class RegistrationController {
 
         if(registrationService.register(email,password,firstName,lastName)){
             registrationService.autoLogin(email,password,request);
-            return new RedirectView("/userhome");
+            return new RedirectView("/user");
         }
         else
             return new RedirectView("/login?emailtaken");

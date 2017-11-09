@@ -24,7 +24,8 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private String email;
    private String summary;
    private String currentStatus;
-   private String userImageUrl;
+   private String headerImageUrl;
+   private String profileImageUrl;
 
    private List<Skill> skills = new ArrayList<>();
    private List<Post> postList = new ArrayList<>();

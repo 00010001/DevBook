@@ -22,4 +22,13 @@ public class UserService {
         String currentPrincipalEmail = authentication.getName();
         return userRepository.findByEmail(currentPrincipalEmail);
     }
+
+    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus) {
+        User user = this.getCurrentlyLoggedUser();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setSummary(summary);
+        user.setCurrentStatus(currentstatus);
+        userRepository.save(user);
+    }
 }

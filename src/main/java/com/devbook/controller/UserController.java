@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +61,6 @@ public class UserController {
         return new ModelAndView("userfriendrequests");
     }
 
-    @GetMapping("/user/edit")
-    public String usereditor() {
-        return "/usereditor";
-    }
-
     @PostMapping("/user/addpost")
     public RedirectView searchUsers(@RequestParam("postBody") String postBody,
                                     @RequestParam("userId") String userId) {
@@ -78,7 +74,7 @@ public class UserController {
             @RequestParam("originUserId") String originUserId,
             @RequestParam("targetUserId") String targetUserId) {
 
-        addToFriendsService.sendFriendRequest(originUserId,targetUserId);
+        addToFriendsService.sendFriendRequest(originUserId, targetUserId);
         return new RedirectView("/user");
     }
 
@@ -89,4 +85,24 @@ public class UserController {
         addToFriendsService.acceptFriendRequest(friendRequestId);
         return new RedirectView("/user");
     }
+
+    @GetMapping("/user/edit")
+    public ModelAndView usereditor(Model model) {
+        User user = userService.getCurrentlyLoggedUser();
+        model.addAttribute("user", user);
+        return new ModelAndView("usereditprofile");
+    }
+
+    @PostMapping("user/updateprofile")
+    public RedirectView updateprofile(@RequestParam("firstname") String firstName,
+                                      @RequestParam("lastname") String lastName,
+                                      @RequestParam("summary") String summary,
+                                      @RequestParam("currentstatus") String currentStatus) {
+
+
+        userService.updateCurrentUserProfile(firstName,lastName,summary,currentStatus);
+        return new RedirectView("/user");
+    }
+
+
 }

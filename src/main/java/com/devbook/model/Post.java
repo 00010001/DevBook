@@ -1,32 +1,34 @@
 package com.devbook.model;
 
+import com.ocpsoft.pretty.time.PrettyTime;
 import lombok.Data;
+import org.thymeleaf.util.DateUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Data
 public class Post implements Comparable<Post>{
 
-    //TODO overide getDateString -> jezeli post byl puszczony do 10 min temu to ma pisac now,
-    //TODO                                                      dzisiaj to ma pisac dzisiaj
-    //TODO                                                        do 30 dni ma pisac x dni temu
-    //TODO                                                       ponad 30 dni no to sama data bez godziny
-
-    private LocalDateTime localDateTime;
+    private Date date;
     private String body;
     private String dateString;
 
-    public Post(String body) {
-        this.localDateTime = LocalDateTime.now();
-        this.body = body;
+    static PrettyTime p = new PrettyTime();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
-        this.dateString = localDateTime.format(formatter);
+    public Post(String body) {
+        this.date = new Date();
+        this.body = body;
+        this.dateString = date.toString();
     }
 
     @Override
     public int compareTo(Post post) {
-        return this.localDateTime.compareTo(post.getLocalDateTime());
+        return this.date.compareTo(post.getDate());
+    }
+
+    public String getDateString(){
+        return p.format(date);
     }
 }

@@ -22,19 +22,27 @@ public class SearchUserService {
     }
 
 
-
     public List<User> searchQueryFromUsers(String searchQuery) {
         List<User> searchUserList;
         String[] words = searchQuery.split("\\s");
-        searchUserList = userRepository.findAll().stream().filter(user->{
-            for (String word : words) {
-
-                if (word.equalsIgnoreCase(user.getFirstName())||word.equalsIgnoreCase(user.getLastName().toLowerCase())
-                        || Levenshtein.distance(word,user.getFirstName())<2||Levenshtein.distance(word,user.getLastName())<2){
-                    return true;
+        searchUserList = userRepository.findAll().stream().filter(user -> {
+            if (words.length<=1) {
+                for (String word : words) {
+                    if (Levenshtein.distance(word, user.getFirstName()) < 2 || Levenshtein.distance(word, user.getLastName()) < 2) {
+                        return true;
+                    }
                 }
+                return false;
+            } else {
+                for (int i = 0; i < words.length; i++) {
+                    for (int j = 0; j < words.length; j++) {
+                        if (Levenshtein.distance(words[i], user.getFirstName()) < 2 && Levenshtein.distance(words[j], user.getLastName()) < 2) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
-            return false;
         }).collect(Collectors.toList());
         return searchUserList;
     }

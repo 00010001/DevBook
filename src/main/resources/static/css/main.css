@@ -9,3 +9,7 @@ h2{
 footer{
     margin-top:60px;
 }
+
+.card-footer.text-muted{
+	padding: 0;
+}

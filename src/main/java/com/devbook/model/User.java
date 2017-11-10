@@ -31,7 +31,8 @@ public class User implements org.springframework.security.core.userdetails.UserD
    private List<Post> postList = new ArrayList<>();
    private List<Message> messages = new ArrayList<>();
 
-   private List<Friend> friendsList = new ArrayList<>();
+   private List<String> friendsList = new ArrayList<>();
+
    private List<FriendRequest> friendRequestsList = new ArrayList<>();
 
    private String password;

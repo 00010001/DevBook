@@ -29,7 +29,6 @@
                         <span th:text="${friendRequest.getDateString()}"></span>
                     </div>
                     <div class="col-md-4">
-                        <span th:text="${friendRequest.getOriginUserFirstName()}"></span>
                         <input type="hidden" name="originuserid" th:value="${friendRequest.getOriginUserId()}"/>
                         <input type="hidden" name="targetuserid" th:value="${friendRequest.getTargetUserId()}"/>
 

@@ -5,7 +5,7 @@
     <div th:each="post : ${postList}">
         <br/>
 
-        <div  class="card text-center">
+        <div class="card text-center">
             <div class="card-body">
                 <p class="card-text" th:text="${post.getBody()}"></p>
             </div>
@@ -13,6 +13,23 @@
                 <span th:text="${post == null ? '' : post.getDateString()}"></span>
             </div>
         </div>
+
+        <!--post comments start-->
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">Baron Von Dupenstein</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+                   value="to jest komentarz" th:disabled="true"/>
+        </div>
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..."/>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+            </div>
+        </form>
+        <!--post comments end-->
+
 
         <br/>
     </div>

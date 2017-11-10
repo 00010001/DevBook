@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userfriendslist">
+    <!--userfriendsprofileimages start-->
+    <br/>
+    <h3>My Friends</h3>
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <div th:each="profilepicture : ${friendsProfilePicturesImages}">
+                <img style="width: 50px" th:src="${profilepicture}"/>
+            </div>
+        </div>
+    </div>
+    <!--userfriendsprofileimages end-->
+</div>
+
+</body>
+</html>

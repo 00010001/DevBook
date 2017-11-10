@@ -1,6 +1,5 @@
 package com.devbook.service;
 
-import com.devbook.model.Friend;
 import com.devbook.model.FriendRequest;
 import com.devbook.model.User;
 import com.devbook.repository.FriendRequestRepository;
@@ -50,9 +49,9 @@ public class AddToFriendsService {
         User targetUser = userRepository.findBy_id(friendRequest.getTargetUserId());
         User originUser = userRepository.findBy_id(friendRequest.getOriginUserId());
 
-        originUser.getFriendsList().add(new Friend(targetUser.get_id()));
+        originUser.getFriendsList().add(targetUser.get_id());
         userRepository.save(originUser);
-        targetUser.getFriendsList().add(new Friend(originUser.get_id()));
+        targetUser.getFriendsList().add(originUser.get_id());
         userRepository.save(targetUser);
         friendRequestRepository.delete(friendRequest);
 

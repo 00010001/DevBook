@@ -2,19 +2,14 @@ package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
 import com.devbook.model.User;
-import com.devbook.repository.UserRepository;
 import com.devbook.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,11 +21,8 @@ public class UserController {
     private UserService userService;
     private PostService postService;
 
-
     //TODO fix searching case sensivity
     //TODO w restowym api jest jeden search controller i jest robione z parametrami metody
-
-
     @Autowired
     public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService) {
         this.searchUserService = searchUserService;
@@ -53,6 +45,7 @@ public class UserController {
         User user = searchUserService.findById(userId);
         model.addAttribute("postList", user.getPostList());
         model.addAttribute("user", user);
+        model.addAttribute("friendsProfilePicturesImages", userService.getProfileImageUrlsListFromCurrentlyLoggedUserFriends());
         return new ModelAndView("home");
     }
 
@@ -70,7 +63,6 @@ public class UserController {
     public ModelAndView userFriendRequests(Model model) {
 
         List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
-
 
 
         model.addAttribute("friendRequestsList", friendRequestList);
@@ -115,7 +107,7 @@ public class UserController {
                                       @RequestParam("profileImageUrl") String profileImageUrl) {
 
 
-        userService.updateCurrentUserProfile(firstName,lastName,summary,currentStatus, headerImageUrl, profileImageUrl);
+        userService.updateCurrentUserProfile(firstName, lastName, summary, currentStatus, headerImageUrl, profileImageUrl);
         return new RedirectView("/user");
     }
 

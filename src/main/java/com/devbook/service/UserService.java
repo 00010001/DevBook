@@ -7,6 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -32,5 +35,19 @@ public class UserService {
         user.setHeaderImageUrl(headerImageUrl);
         user.setProfileImageUrl(profileImageUrl);
         userRepository.save(user);
+    }
+
+    public List<User> getCurrentlyLoggedUserFriendList() {
+        User currentlyLoggedUser = userRepository.findBy_id(this.getCurrentlyLoggedUser().get_id());
+        return userRepository.findBy_id(currentlyLoggedUser.getFriendsList());
+    }
+
+    public List<String> getProfileImageUrlsListFromCurrentlyLoggedUserFriends(){
+        List<String> friendsProfileImagesUrlsList = new ArrayList<>();
+
+        for (User user : this.getCurrentlyLoggedUserFriendList()) {
+            friendsProfileImagesUrlsList.add(user.getProfileImageUrl());
+        }
+        return friendsProfileImagesUrlsList;
     }
 }

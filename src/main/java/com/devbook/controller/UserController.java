@@ -70,6 +70,9 @@ public class UserController {
     public ModelAndView userFriendRequests(Model model) {
 
         List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
+
+
+
         model.addAttribute("friendRequestsList", friendRequestList);
         return new ModelAndView("userfriendrequests");
     }
@@ -85,13 +88,12 @@ public class UserController {
         return new RedirectView("/user");
     }
 
-    // TODO POST user/friend akceptowanie friend requestu
-
-    @PostMapping("user/acceptFriendRequest")
+    //TODO POST user/friend akceptowanie friend requestu
+    @PostMapping("user/friend")
     public RedirectView acceptFriendRequest(
-            @RequestParam("friendRequestId") String friendRequestId) {
-
-        addToFriendsService.acceptFriendRequest(friendRequestId);
+            @RequestParam("originuserid") String originuserid,
+            @RequestParam("targetuserid") String targetuserid) {
+        addToFriendsService.acceptFriendRequest(originuserid, targetuserid);
         return new RedirectView("/user");
     }
 

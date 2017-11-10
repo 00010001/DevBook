@@ -1,6 +1,7 @@
 package com.devbook.service;
 
 import com.devbook.model.*;
+import com.devbook.repository.FriendRequestRepository;
 import com.devbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,19 @@ import java.util.List;
 public class SampleDataService {
 
     private UserRepository userRepository;
+    private FriendRequestRepository friendRequestRepository;
 
     @Autowired
-    public SampleDataService(UserRepository userRepository) {
+    public SampleDataService(UserRepository userRepository, FriendRequestRepository friendRequestRepository) {
         this.userRepository = userRepository;
+        this.friendRequestRepository = friendRequestRepository;
     }
 
     public void addSampleDataToDatabase(boolean deleteEverythingFromDatabase){
 
         if(deleteEverythingFromDatabase){
             userRepository.deleteAll();
+            friendRequestRepository.deleteAll();
         }
 
         addSampleUsers();
@@ -60,6 +64,7 @@ public class SampleDataService {
         user.setLastName("Snow");
         user.setEmail("johnsnow@gmail.com");
         user.setPassword("0000");
+        user.setProfileImageUrl("https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/06/15/09/jon-snow.jpg");
         user.getRoleSet().add(Role.ROLE_USER);
         user.setSummary("Currently enrolled in Java Coding Bootcamp \n" +
                 "at Software Development Academy in Katowice\n" +
@@ -74,19 +79,11 @@ public class SampleDataService {
         postList.add(new Post("Jeszcze tylko kilka dni..."));
         user.setPostList(postList);
 
-
         List<Skill> userSkills = new ArrayList<>();
         userSkills.add(new Skill("Java","Maven, Hibernate, Spring"));
         userSkills.add(new Skill("Frontend","Angular, HTML, CSS"));
         userSkills.add(new Skill("TDD","Junit, Mockito"));
-
-
         user.setSkills(userSkills);
-
-        List<FriendRequest> friendRequestList = new ArrayList<>();
-        FriendRequest friendRequest = new FriendRequest("0","0");
-        friendRequest.setOriginUserProfileImageUrl("http://www.racialjusticenetwork.co.uk/wp-content/uploads/2016/12/default-profile-picture.png");
-        user.setFriendRequestsList(friendRequestList);
 
         return user;
     }
@@ -98,6 +95,8 @@ public class SampleDataService {
         user.setLastName("Stark");
         user.setEmail("ariastark@gmail.com");
         user.setPassword("0000");
+
+        user.setProfileImageUrl("https://cdn.images.express.co.uk/img/dynamic/20/590x/secondary/Arya-Stark-appears-to-have-a-murderous-streak-1002871.jpg");
         user.getRoleSet().add(Role.ROLE_USER);
         user.setSummary("Innovator of next-generation solutions, systems and applications giving companies \n" +
                 "a competitive edge and producing outstanding results for customers.");
@@ -217,6 +216,8 @@ public class SampleDataService {
         user.setLastName("Lannister");
         user.setEmail("jamielannister@gmail.com");
         user.setPassword("0000");
+
+        user.setProfileImageUrl("https://thenerdrecites.com/wp-content/uploads/2017/01/jaime-lannister-1280-1-_FULL.jpg");
         user.getRoleSet().add(Role.ROLE_USER);
         user.setSummary("Curabitur non lectus a est mollis tristique. Proin placerat odio  \n" +
                 "vel erat dapibus, suscipit aliquet lectus laoreet. Quisque aliquam  \n" +

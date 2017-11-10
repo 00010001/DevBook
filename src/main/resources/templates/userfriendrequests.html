@@ -17,24 +17,30 @@
         <h2>Friend Requests</h2>
         <div th:each="friendRequest : ${friendRequestsList}">
 
-            <div class="form-row align-items-center">
 
-                <div class="col-2">
-                    <div class="card">
-                        <img class="card-img-top" th:src="${friendRequest.getOriginUserProfileImageUrl()}"/>
+            <form th:action="@{/user/friend}" method="post">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="card-img-top" style="width:100px;"
+                             th:src="${friendRequest.getOriginUserProfileImageUrl()}"/>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 th:text="${friendRequest.getOriginUserFirstName()} + ' ' + ${friendRequest.getOriginUserLastName()}"></h4>
+                        <span th:text="${friendRequest.getDateString()}"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${friendRequest.getOriginUserFirstName()}"></span>
+                        <input type="hidden" name="originuserid" th:value="${friendRequest.getOriginUserId()}"/>
+                        <input type="hidden" name="targetuserid" th:value="${friendRequest.getTargetUserId()}"/>
+
+                        <button type="submit" class="btn btn-dark">Accept Friend Request</button>
+                        <button type="button" class="btn btn-danger">Delete Friend Request</button>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <div class="card">
-                        <p class="card-img-top" th:text="${friendRequest.getDateString()}"></p>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="card">
-                        <p>accept friend request</p>
-                    </div>
-                </div>
-            </div>
+
+            </form>
+
+            <br/>
         </div>
     </div>
 

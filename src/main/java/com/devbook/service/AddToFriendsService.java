@@ -24,30 +24,41 @@ public class AddToFriendsService {
         this.userService = userService;
     }
 
-    public void sendFriendRequest(String originUserId, String targetUserId){
+    public void sendFriendRequest(String originUserId, String targetUserId) {
 
-        FriendRequest friendRequest = new FriendRequest(originUserId,targetUserId);
+        FriendRequest friendRequest = new FriendRequest(originUserId, targetUserId);
         User targetUser = userRepository.findBy_id(targetUserId);
-        friendRequest.setOriginUserProfileImageUrl(userRepository.findBy_id(originUserId).getProfileImageUrl());
+        User originUser = userRepository.findBy_id(originUserId);
+        friendRequest.setOriginUserProfileImageUrl(originUser.getProfileImageUrl());
+        friendRequest.setOriginUserFirstName(originUser.getFirstName());
+        friendRequest.setOriginUserLastName(originUser.getLastName());
+
+
         targetUser.getFriendRequestsList().add(friendRequest);
         userRepository.save(targetUser);
         friendRequestRepository.save(friendRequest);
+
     }
 
-    public void acceptFriendRequest(String friendRequestId){
-        FriendRequest friendRequest = friendRequestRepository.findBy_id(friendRequestId);
+    public void acceptFriendRequest(String originUserId, String targetUserId) {
+
+        FriendRequest friendRequest = friendRequestRepository
+                .findByOriginUserIdAndTargetUserId(originUserId, targetUserId);
+
+        System.out.println(friendRequest);
 
         User targetUser = userRepository.findBy_id(friendRequest.getTargetUserId());
         User originUser = userRepository.findBy_id(friendRequest.getOriginUserId());
 
         originUser.getFriendsList().add(new Friend(targetUser.get_id()));
+        userRepository.save(originUser);
         targetUser.getFriendsList().add(new Friend(originUser.get_id()));
-
-        friendRequest.setAccepted(true);
+        userRepository.save(targetUser);
+        friendRequestRepository.delete(friendRequest);
 
     }
 
     public List<FriendRequest> getFriendRequestList() {
-        return userService.getCurrentlyLoggedUser().getFriendRequestsList();
+        return userRepository.findBy_id(userService.getCurrentlyLoggedUser().get_id()).getFriendRequestsList();
     }
 }

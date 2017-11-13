@@ -12,7 +12,7 @@ import java.util.List;
 public class Post implements Comparable<Post> {
 
     @Id
-    private  String _id;
+    private String _id;
     private Date date;
     private String body;
     private String dateString;
@@ -24,7 +24,6 @@ public class Post implements Comparable<Post> {
         this.date = new Date();
         this.body = body;
         this.dateString = date.toString();
-        this.commentList = new ArrayList<>();
     }
 
     @Override

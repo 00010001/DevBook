@@ -10,10 +10,14 @@ public class Comment implements Comparable<Comment> {
     private Date date;
     private String body;
     private String dateString;
+    private String commentPoster;
+    private String commentReceiver;
 
     static PrettyTime p = new PrettyTime();
 
-    public Comment(String body) {
+    public Comment(String body, String commentPoster, String commentReceiver) {
+        this.commentPoster = commentPoster;
+        this.commentReceiver = commentReceiver;
         this.date = new Date();
         this.body = body;
         this.dateString = date.toString();

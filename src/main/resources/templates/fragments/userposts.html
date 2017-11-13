@@ -20,11 +20,14 @@
             <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
                    value="to jest komentarz" th:disabled="true"/>
         </div>
-        <form>
+        <form th:action="@{/user/addcomment}" method="post">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..."/>
+                <input type="hidden" id="postId" name="postId" th:value="${post.get_id()}"/>
+                <input type="hidden" id="commentUserId" name="commentUserId" th:value="${#authentication.getPrincipal().get_id()}"/>
+                <input type="hidden" id="postUserId" name="postUserId" th:value="${user.get_id()}"/>
+                <input type="text" class="form-control" id="commentBody" name="commentBody" placeholder="Your comment" required="true"/>
                 <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">Go!</button>
+                    <button class="btn btn-secondary" type="submit">Comment</button>
                 </span>
             </div>
         </form>

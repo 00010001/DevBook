@@ -23,16 +23,17 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public List<Comment> addComment(String commentBody, String userId, String postId) {
+    public List<Comment> addComment(String commentBody, String postUserId, String postId, String commentUserId) {
 
-        Comment comment = new Comment(commentBody);
-        User user = userRepository.findBy_id(userId);
+        Comment comment = new Comment(commentBody, commentUserId, postUserId);
+        User postUser = userRepository.findBy_id(postUserId);
+        User commentUser = userRepository.findBy_id(commentUserId);
         Post post = postRepository.findBy_id(postId);
         List<Comment> commentList = post.getCommentList();
         commentList.add(comment);
         Collections.sort(commentList);
         Collections.reverse(commentList);
-        userRepository.save(user);
+        userRepository.save(postUser);
 
         return post.getCommentList();
     }

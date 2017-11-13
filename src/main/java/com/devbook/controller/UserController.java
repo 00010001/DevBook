@@ -2,11 +2,17 @@ package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
 import com.devbook.model.User;
-import com.devbook.service.*;
+import com.devbook.service.AddToFriendsService;
+import com.devbook.service.PostService;
+import com.devbook.service.SearchUserService;
+import com.devbook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -51,7 +57,7 @@ public class UserController {
 
     //TODO addpost to bedzie /user/post z metoda post
 
-    @PostMapping("/user/addpost")
+    @PostMapping("/user/addPost")
     public RedirectView searchUsers(@RequestParam("postBody") String postBody,
                                     @RequestParam("userId") String userId) {
 
@@ -59,14 +65,14 @@ public class UserController {
         return new RedirectView(userId);
     }
 
-    @GetMapping("/user/friendrequests")
+    @GetMapping("/user/friendRequests")
     public ModelAndView userFriendRequests(Model model) {
 
         List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
 
 
         model.addAttribute("friendRequestsList", friendRequestList);
-        return new ModelAndView("userfriendrequests");
+        return new ModelAndView("userFriendRequests");
     }
 
     // TODO "/user/friendrequests" z postem
@@ -83,32 +89,39 @@ public class UserController {
     //TODO POST user/friend akceptowanie friend requestu
     @PostMapping("user/friend")
     public RedirectView acceptFriendRequest(
-            @RequestParam("originuserid") String originuserid,
-            @RequestParam("targetuserid") String targetuserid) {
+            @RequestParam("originUserId") String originuserid,
+            @RequestParam("targetUserId") String targetuserid) {
         addToFriendsService.acceptFriendRequest(originuserid, targetuserid);
         return new RedirectView("/user");
     }
 
     @GetMapping("/user/edit")
-    public ModelAndView usereditor(Model model) {
+    public ModelAndView userEditor(Model model) {
         User user = userService.getCurrentlyLoggedUser();
         model.addAttribute("user", user);
-        return new ModelAndView("usereditprofile");
+        return new ModelAndView("userEditProfile");
     }
 
     //TODO /user put -> put to znaczy update
 
-    @PostMapping("user/updateprofile")
-    public RedirectView updateprofile(@RequestParam("firstname") String firstName,
-                                      @RequestParam("lastname") String lastName,
+    @PostMapping("user/updateProfile")
+    public RedirectView updateProfile(@RequestParam("firstName") String firstName,
+                                      @RequestParam("lastName") String lastName,
                                       @RequestParam("summary") String summary,
-                                      @RequestParam("currentstatus") String currentStatus,
+                                      @RequestParam("currentStatus") String currentStatus,
                                       @RequestParam("headerImageUrl") String headerImageUrl,
-                                      @RequestParam("profileImageUrl") String profileImageUrl) {
+                                      @RequestParam("profileImageUrl") String profileImageUrl){
 
 
         userService.updateCurrentUserProfile(firstName, lastName, summary, currentStatus, headerImageUrl, profileImageUrl);
         return new RedirectView("/user");
+    }
+
+    @PostMapping("user/addSkill")
+    public RedirectView addSkill(){
+
+
+        return new RedirectView("/user/edit");
     }
 
 

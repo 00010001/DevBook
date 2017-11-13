@@ -57,11 +57,24 @@
                 <label for="profileImageUrl" class="col-sm-2 col-form-label">Profile Image Url</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="profileImageUrl" id="profileImageUrl"
-                           th:attr="value=${user.getProfileImageUrl()}"/>
+                       th:attr="value=${user.getProfileImageUrl()}"/>
                 </div>
             </div>
 
+
+
             <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+
+
+
+        <form th:action="@{/user/addSkill}" method="post">
+            <tr th:each="skill : ${user.getSkills()}">
+                <input type="text" class="form-control" name="profileImageUrl" id="profileImageUrl"
+                       th:attr="value=${skill.getSkillName()}"/>
+
+            </tr>
+            <button type="submit" class="btn btn-primary">Dodaj skill</button>
         </form>
     </div>
 

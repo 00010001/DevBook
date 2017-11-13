@@ -2,33 +2,30 @@ package com.devbook.model;
 
 import com.ocpsoft.pretty.time.PrettyTime;
 import lombok.Data;
-
-import javax.persistence.Id;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
-public class Post implements Comparable<Post> {
+public class Comment implements Comparable<Comment> {
 
-    @Id
-    private String _id;
     private Date date;
     private String body;
     private String dateString;
-    private List<Comment> commentList;
+    private String commentPoster;
+    private String commentReceiver;
 
     static PrettyTime p = new PrettyTime();
 
-    public Post(String body) {
+    public Comment(String body, String commentPoster, String commentReceiver) {
+        this.commentPoster = commentPoster;
+        this.commentReceiver = commentReceiver;
         this.date = new Date();
         this.body = body;
         this.dateString = date.toString();
     }
 
     @Override
-    public int compareTo(Post post) {
-        return this.date.compareTo(post.getDate());
+    public int compareTo(Comment comment) {
+        return this.date.compareTo(comment.getDate());
     }
 
     public String getDateString() {

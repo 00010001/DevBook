@@ -12,18 +12,23 @@
             </h4>
             <p class="card-text">
                 <span th:text="${user.getSummary()}"></span>
-            <div th:if="${user.get_id()} != ${#authentication.getPrincipal().get_id()}">
-
-                <form th:action="@{/user/addToFriends}" method="post">
-                    <input type="hidden" id="originUserId" name="originUserId" th:value="${#authentication.getPrincipal().get_id()}"/>
-                    <input type="hidden" id="targetUserId" name="targetUserId" th:value="${user.get_id()}"/>
-
-                    <button type="submit" class="btn btn-primary btn-sm">Send Friend Request</button>
-                </form>
-
-            </div>
-
             </p>
+            <div th:if="${user.get_id()} != ${#authentication.getPrincipal().get_id()}">
+                <div class="row">
+                    <div class="col-3">
+                        <form th:action="@{/user/addToFriends}" method="post">
+                            <input type="hidden" id="originUserId" name="originUserId" th:value="${#authentication.getPrincipal().get_id()}"/>
+                            <input type="hidden" id="targetUserId" name="targetUserId" th:value="${user.get_id()}"/>
+                            <button type="submit" class="btn btn-primary btn-sm">Send Friend Request</button>
+                        </form>
+                    </div>
+                    <div class="col-3">
+                        <button type="reset" class="btn btn-dark btn-sm">Send Message</button>
+                    </div>
+                </div>
+        </div>
+
+
         </div>
     </div>
     <!--user header end-->

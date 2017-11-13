@@ -31,30 +31,43 @@ public class AddToFriendsService {
         friendRequest.setOriginUserProfileImageUrl(originUser.getProfileImageUrl());
         friendRequest.setOriginUserFirstName(originUser.getFirstName());
         friendRequest.setOriginUserLastName(originUser.getLastName());
-
-
-        targetUser.getFriendRequestsList().add(friendRequest);
-        userRepository.save(targetUser);
         friendRequestRepository.save(friendRequest);
 
+        targetUser.getFriendRequestsList().add(friendRequest);
+
+        userRepository.save(targetUser);
+        friendRequestRepository.save(friendRequest);
     }
 
     public void acceptFriendRequest(String originUserId, String targetUserId) {
 
         FriendRequest friendRequest = friendRequestRepository
                 .findByOriginUserIdAndTargetUserId(originUserId, targetUserId);
+        removeFriendRequestFromTargetUserFriendRequestList(targetUserId,friendRequest);
+        makeUsersFriends(friendRequest.getTargetUserId(),friendRequest.getOriginUserId());
+        removeFriendRequestFromDB(friendRequest);
 
-        System.out.println(friendRequest);
+    }
 
-        User targetUser = userRepository.findBy_id(friendRequest.getTargetUserId());
-        User originUser = userRepository.findBy_id(friendRequest.getOriginUserId());
+    private void makeUsersFriends(String firstUserId, String secondUserId){
+        User user1 = userRepository.findBy_id(firstUserId);
+        User user2 = userRepository.findBy_id(secondUserId);
+        user2.getFriendsList().add(user1.get_id());
+        userRepository.save(user2);
+        user1.getFriendsList().add(user2.get_id());
+        userRepository.save(user1);
+    }
 
-        originUser.getFriendsList().add(targetUser.get_id());
-        userRepository.save(originUser);
-        targetUser.getFriendsList().add(originUser.get_id());
+    private void removeFriendRequestFromTargetUserFriendRequestList(String targetUserId, FriendRequest friendRequest){
+
+        User targetUser = userRepository.findBy_id(targetUserId);
+        targetUser.getFriendRequestsList().remove(friendRequest);
         userRepository.save(targetUser);
-        friendRequestRepository.delete(friendRequest);
 
+    }
+
+    private void removeFriendRequestFromDB(FriendRequest friendRequest){
+        friendRequestRepository.delete(friendRequest);
     }
 
     public List<FriendRequest> getFriendRequestList() {

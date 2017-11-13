@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DevBook</title>
+
+    <div th:replace="fragments/header :: head"/>
+
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"/>
+
+<div class="container">
+
+    <div class="col">
+        <br/>
+        <div class="row">
+            <div class="col-1">
+                <div class="card" style="">
+                    <img class="card-img-top"
+                         src="https://support.apple.com/content/dam/edam/applecare/images/en_US/osxserver/psp-mini-hero-profile-manager_2x.png"
+                         alt="Card image cap"/>
+                </div>
+            </div>
+            <div class="col-7">
+                <h2>Send Message to: <h4 class="card-title">Adresat Wiadomosci</h4></h2>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form>
+
+                    <div class="form-group">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

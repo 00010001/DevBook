@@ -1,6 +1,7 @@
 package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
+import com.devbook.model.Message;
 import com.devbook.model.User;
 import com.devbook.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,17 @@ public class UserController {
     private AddToFriendsService addToFriendsService;
     private UserService userService;
     private PostService postService;
+    private MessageService messageService;
 
     //TODO fix searching case sensivity
     //TODO w restowym api jest jeden search controller i jest robione z parametrami metody
-    @Autowired
-    public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService) {
+@Autowired
+    public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService, MessageService messageService) {
         this.searchUserService = searchUserService;
         this.addToFriendsService = addToFriendsService;
         this.userService = userService;
         this.postService = postService;
+        this.messageService = messageService;
     }
 
 
@@ -64,9 +67,28 @@ public class UserController {
 
         List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
 
-
         model.addAttribute("friendRequestsList", friendRequestList);
         return new ModelAndView("userfriendrequests");
+    }
+
+    @GetMapping("/user/sendmessage")
+    public ModelAndView sendMessage(Model model) {
+        //List<Message> messageList = messageService.getUserMessagesList();
+       // model.addAttribute("messageList", messageList);
+        return new ModelAndView("usersendmessage");
+    }
+
+    @GetMapping("/user/messages")
+    public ModelAndView userMessages(Model model) {
+        List<Message> messageList = messageService.getUserMessagesList();
+        model.addAttribute("messageList", messageList);
+        return new ModelAndView("usermessages");
+    }
+    @PostMapping("/user/messages")
+    public ModelAndView adduserMessages(Model model) {
+        List<Message> messageList = messageService.addNewMessage();
+        model.addAttribute("messageList", messageList);
+        return new ModelAndView("usermessages");
     }
 
     // TODO "/user/friendrequests" z postem

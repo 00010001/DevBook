@@ -112,7 +112,7 @@ public class UserController {
                                       @RequestParam("currentStatus") String currentStatus,
                                       @RequestParam("headerImageUrl") String headerImageUrl,
                                       @RequestParam("profileImageUrl") String profileImageUrl){
-
+// cofnac to co napisalas bo wtedy to co jest nad tym co robisz przestanie dzialac!!!!
 
         userService.updateCurrentUserProfile(firstName, lastName, summary, currentStatus, headerImageUrl, profileImageUrl);
         return new RedirectView("/user");
@@ -120,12 +120,25 @@ public class UserController {
 
     @PostMapping("user/addSkill")
     public RedirectView addSkill(@RequestParam("skillName") String skillName,
-                                 @RequestParam("detail") String detail){
-        Skill pusty = new Skill();
+                                 @RequestParam("skillDescription") String skillDescription){
+        System.out.println(skillName);
+        System.out.println(skillDescription);
+        Skill skill = new Skill();
+        skill.setSkillDescription(skillDescription);
+        skill.setSkillName(skillName);
+        User user = userService.getCurrentlyLoggedUser();
+        userService.addSkill(user, skill);
+   //     potem wywolujemy motede w user service ktora ta metoda wywowla z user serwice
+        // inna metode ktora juz jest ktora wywola aktualnego uzytkownika z ktorej pobierzemy
+        // liste jego skilli i do ktorej dodamy nowy skill po czym na koncu wezwiemy
+        // user repository i zpaiszemy usera zeby zachowac zmainy
 
 
         return new RedirectView("/user/edit");
     }
+
+//TODO tutaj trzeba dorobic id do skillow zeby edytowac kazdy z osobna
+    //tutaj robisz drugi kontroller update skills ktory analogicznie
 
 
 }

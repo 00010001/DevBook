@@ -1,5 +1,6 @@
 package com.devbook.service;
 
+import com.devbook.model.Skill;
 import com.devbook.model.User;
 import com.devbook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,17 @@ public class UserService {
         return userRepository.findByEmail(currentPrincipalEmail);
     }
 
-    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus, String headerImageUrl, String profileImageUrl) {
+    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentStatus, String headerImageUrl, String profileImageUrl) {
         User user = this.getCurrentlyLoggedUser();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setSummary(summary);
-        user.setCurrentStatus(currentstatus);
+        user.setCurrentStatus(currentStatus);
         user.setHeaderImageUrl(headerImageUrl);
         user.setProfileImageUrl(profileImageUrl);
         userRepository.save(user);
     }
+
 
     public List<User> getCurrentlyLoggedUserFriendList() {
         User currentlyLoggedUser = userRepository.findBy_id(this.getCurrentlyLoggedUser().get_id());
@@ -49,5 +51,10 @@ public class UserService {
             friendsProfileImagesUrlsList.add(user.getProfileImageUrl());
         }
         return friendsProfileImagesUrlsList;
+    }
+
+    public void addSkill(User user, Skill skill){
+        user.getSkills().add(skill);
+        userRepository.save(user);
     }
 }

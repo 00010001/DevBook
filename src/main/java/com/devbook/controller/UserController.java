@@ -1,6 +1,7 @@
 package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
+import com.devbook.model.Skill;
 import com.devbook.model.User;
 import com.devbook.service.AddToFriendsService;
 import com.devbook.service.PostService;
@@ -118,7 +119,9 @@ public class UserController {
     }
 
     @PostMapping("user/addSkill")
-    public RedirectView addSkill(){
+    public RedirectView addSkill(@RequestParam("skillName") String skillName,
+                                 @RequestParam("detail") String detail){
+        Skill pusty = new Skill();
 
 
         return new RedirectView("/user/edit");

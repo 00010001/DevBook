@@ -1,20 +1,27 @@
 package com.devbook.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Message {
 
-    private Date date;
-    private String body;
-    private boolean messageOpened;
-    private User sender;
-    private User receiver;
+    private String senderProfileImageUrl;
+    private String senderFirstName;
+    private String senderLastName;
+    private String messageBody;
+    private String senderId;
+    private String receiverId;
 
+    private Date date;
+    private String dateString;
+
+    public Message() {
+        this.date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss dd-MM-yyyy ");
+        this.dateString = dateFormat.format(date);
+    }
 }

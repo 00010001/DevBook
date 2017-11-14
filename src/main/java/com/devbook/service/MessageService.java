@@ -2,33 +2,47 @@ package com.devbook.service;
 
 import com.devbook.model.Message;
 import com.devbook.model.User;
-import com.devbook.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MessageService {
 
-    private MessageRepository messageRepository;
+    private UserService userService;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
+    public MessageService(UserService userService) {
+        this.userService = userService;
     }
 
-    public Message searchBySender(User user) {
-        return messageRepository.findBySender(user);
+    public Message createMessage(String targetUserId, String messageBody) {
+        User sender = userService.getCurrentlyLoggedUser();
+
+        Message message = new Message();
+        message.setSenderFirstName(sender.getFirstName());
+        message.setSenderLastName(sender.getLastName());
+        message.setMessageBody(messageBody);
+        message.setSenderProfileImageUrl(sender.getProfileImageUrl());
+        message.setSenderId(sender.get_id());
+        message.setReceiverId(targetUserId);
+        return message;
     }
 
-    public List<Message> getUserMessagesList() {
-        return new ArrayList<>();
+    public void addMessageToSenderUserAndSave(Message myMessage) {
+        User currentUser = userService.getCurrentlyLoggedUser();
+        currentUser.getMessages().add(myMessage);
+        userService.saveUser(currentUser);
     }
 
-    public List<Message> addNewMessage() {
+    public void addMessageToReceiverUserAndSave(Message myMessage) {
+        User receiver = userService.getUserById(myMessage.getReceiverId());
+        receiver.getMessages().add(myMessage);
+        userService.saveUser(receiver);
+    }
 
-        return null;
+    public List<Message> getCurrentUserMessages() {
+        return userService.getUserById(userService.getCurrentlyLoggedUser().get_id()).getMessages();
     }
 }

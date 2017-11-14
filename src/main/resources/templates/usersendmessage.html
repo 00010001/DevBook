@@ -12,18 +12,17 @@
 
 <div class="container">
 
-    <div class="col">
         <br/>
         <div class="row">
             <div class="col-1">
                 <div class="card" style="">
-                    <img class="card-img-top"
-                         src="https://support.apple.com/content/dam/edam/applecare/images/en_US/osxserver/psp-mini-hero-profile-manager_2x.png"
-                         alt="Card image cap"/>
+                          <img class="card-img-top"
+                               th:src="${targetUser.getProfileImageUrl()}"
+                               alt="Target User Profile Image"/>
                 </div>
             </div>
             <div class="col-7">
-                <h2>Send Message to: <h4 class="card-title">Adresat Wiadomosci</h4></h2>
+                <h2>Send Message to: <h4 class="card-title" th:text="${targetUser.getFirstName() + ' ' + targetUser.getLastName()}"></h4></h2>
             </div>
             <div class="col-4">
 
@@ -31,18 +30,22 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <form>
+                <form th:action="@{/user/message}" method="post">
 
                     <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" name="message" id="message" rows="7" required="required">
+                            <div th:remove="tag" th:if="${messageBody != null}">
+                                <span th:text="${messageBody}" th:remove="tag"/>
+                            </div>
+                        </textarea>
                     </div>
+                    <input type="hidden" th:value="${targetUserId}" name="targetUserId"/>
 
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
 
                 </form>
             </div>
         </div>
-    </div>
 
 </div>
 <!-- /.container -->

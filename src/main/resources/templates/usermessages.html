@@ -14,28 +14,84 @@
 
     <div class="col">
         <br/>
-        <h2>Messages</h2>
-        <div class="row">
-            <div class="col-1">
-                <div class="card" style="width: 75px;">
-                    <img class="card-img-top" src="https://support.apple.com/content/dam/edam/applecare/images/en_US/osxserver/psp-mini-hero-profile-manager_2x.png" alt="Card image cap"/>
-                </div>
-            </div>
+        <h2>Received</h2>
+        <!--//START-->
+        <div th:each="message : ${messages}">
 
-            <div class="col-11">
-                <form>
-
-                    <p><b>John Snow: </b>tekst 1 </p>
-                    <p><b>John Snow: </b>tekst 2 </p>
-
-                    <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <!--start ifu-->
+            <div th:if="${message.getSenderId() != currentUserId}" th:remove="tag">
+            <form th:action="@{/user/sendmessage}" method="post">
+                <div class="row">
+                    <div class="col-1">
+                        <img class="card-img-top" th:src="${message.getSenderProfileImageUrl()}"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
 
+                    <div class="col-2">
+                        <span th:text="${message.getSenderFirstName() + ' ' + message.getSenderLastName()}"></span>
+                        <br/>
+                        <b><span th:text="${message.getDateString()}"></span> </b>
+                    </div>
+
+                    <div class="col-8">
+                        <textarea class="form-control" id="message" rows="3"
+                                  disabled="disabled"><span th:remove="tag"
+                                                            th:text="${message.getMessageBody()}"></span>
+                        </textarea>
+                    </div>
+                    <input type="hidden" th:value="${message.getMessageBody()}" name="message"/>
+                    <input type="hidden" th:value="${message.getSenderId()}" name="targetUserId"/>
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-dark btn-sm">Reply</button>
+                        <!--TODO delete message-->
+                    </div>
+                </div>
+            </form>
+            </div>
+            <!--koneic ifu-->
+
+        </div>
+        <!--//Koniec-->
+
+        <br/>
+        <h2>Send</h2>
+
+        <!--//START-->
+        <div th:each="message : ${messages}">
+
+            <!--start ifu-->
+            <div th:if="${message.getSenderId() == currentUserId}" th:remove="tag">
+                <form th:action="@{/user/sendmessage}" method="post">
+                    <div class="row">
+                        <div class="col-1">
+                            <img class="card-img-top" th:src="${message.getSenderProfileImageUrl()}"/>
+                        </div>
+
+                        <div class="col-2">
+                            <span th:text="${message.getSenderFirstName() + ' ' + message.getSenderLastName()}"></span>
+                            <br/>
+                            <b><span th:text="${message.getDateString()}"></span> </b>
+                        </div>
+
+                        <div class="col-8">
+                        <textarea class="form-control" id="message" rows="3"
+                                  disabled="disabled"><span th:remove="tag"
+                                                            th:text="${message.getMessageBody()}"></span>
+                        </textarea>
+                        </div>
+                        <input type="hidden" th:value="${message.getMessageBody()}" name="message"/>
+                        <input type="hidden" th:value="${message.getSenderId()}" name="targetUserId"/>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-dark btn-sm">Reply</button>
+                            <!--TODO delete message-->
+                        </div>
+                    </div>
                 </form>
             </div>
+            <!--koneic ifu-->
+
         </div>
+        <!--//Koniec-->
+
     </div>
 
 </div>

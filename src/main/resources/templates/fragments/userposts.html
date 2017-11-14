@@ -13,12 +13,18 @@
                 <span th:text="${post == null ? '' : post.getDateString()}"></span>
             </div>
         </div>
-
-        <!--post comments start-->
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon3">Baron Von Dupenstein</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
-                   value="to jest komentarz" th:disabled="true"/>
+        <div class="input-group" th:each="comment : ${post.getCommentList()}">
+            <div class="col-3">
+                <input class="input-group-addon" id="basic-addon3" th:value="${comment.getCommentPosterFirstName()} + ' ' + ${comment.getCommentPosterLastName()}"></input>
+            </div>
+            <div class="col-6">
+                <p th:text="${comment.getBody()}" th:disabled="true"/>
+            </div>
+            <div class="col-3">
+                <div class="card-footer text-muted">
+                    <input th:value="${comment == null ? '' : comment.getDateString()}"></input>
+                </div>
+            </div>
         </div>
         <form th:action="@{/user/addcomment}" method="post">
             <div class="input-group">

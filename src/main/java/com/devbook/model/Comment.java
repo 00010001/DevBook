@@ -12,13 +12,15 @@ public class Comment implements Comparable<Comment> {
     private String dateString;
     private String commentPosterFirstName;
     private String commentPosterLastName;
+    private String commentPosterId;
     private String commentReceiver;
 
     static PrettyTime p = new PrettyTime();
 
-    public Comment(String body, String commentPosterFirstName, String commentPosterLastName, String commentReceiver) {
+    public Comment(String body, String commentPosterFirstName, String commentPosterLastName, String commentReceiver, String commentPosterId) {
         this.commentPosterFirstName = commentPosterFirstName;
         this.commentPosterLastName = commentPosterLastName;
+        this.commentPosterId = commentPosterId;
         this.commentReceiver = commentReceiver;
         this.date = new Date();
         this.body = body;

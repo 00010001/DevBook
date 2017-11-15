@@ -1,5 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
+
+
+
 <div th:fragment="userposts">
     <!--userposts start-->
     <div th:each="post : ${postList}">
@@ -14,18 +17,15 @@
             </div>
         </div>
         <div class="input-group" th:each="comment : ${post.getCommentList()}">
-            <div class="col-3">
-                <input class="input-group-addon" id="basic-addon3" th:value="${comment.getCommentPosterFirstName()} + ' ' + ${comment.getCommentPosterLastName()}"></input>
+            <a id="linkosobykomentujacej" th:href="${comment.getCommentPosterId()}">
+                <span class="input-group-addon" id="osobakomentujaca" th:text="${comment.getCommentPosterFirstName()} + ' ' + ${comment.getCommentPosterLastName()}"></span>
+            </a>
+            <span type="text" class="form-control" id="tekstkomentarza" aria-describedby="basic-addon3"
+                   th:text="${comment.getBody()}"/>
+            <div class="card-footer text-muted" id="datakomentarza">
+                <span th:text="${comment == null ? '' : comment.getDateString()}"></span>
             </div>
-            <div class="col-6">
-                <p th:text="${comment.getBody()}" th:disabled="true"/>
-            </div>
-            <div class="col-3">
-                <div class="card-footer text-muted">
-                    <input th:value="${comment == null ? '' : comment.getDateString()}"></input>
-                </div>
-            </div>
-        </div>
+        </div >
         <form th:action="@{/user/addcomment}" method="post">
             <div class="input-group">
                 <input type="hidden" id="postId" name="postId" th:value="${post.get_id()}"/>

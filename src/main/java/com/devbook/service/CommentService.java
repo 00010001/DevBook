@@ -27,7 +27,7 @@ public class CommentService {
     public List<Comment> addComment(String commentBody, String postUserId, String postId, String commentUserId) {
         User postUser = userRepository.findBy_id(postUserId);
         User commentUser = userRepository.findBy_id(commentUserId);
-        Comment comment = new Comment(commentBody,commentUser.getFirstName(),commentUser.getLastName(),postUserId);
+        Comment comment = new Comment(commentBody,commentUser.getFirstName(),commentUser.getLastName(),postUserId, commentUserId);
         Post post = postRepository.findBy_id(postId);
         List<Comment> commentList = post.getCommentList();
         commentList.add(comment);

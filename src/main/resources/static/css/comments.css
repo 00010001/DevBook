@@ -1,0 +1,20 @@
+
+#linkosobykomentujacej{
+    overflow: hidden;
+    width: 20%;
+    color: #0d00ff;
+}
+#osobakomentujaca{
+    overflow: hidden;
+    color: #0d00ff;
+    height: 100%;
+}
+#tekstkomentarza{
+    overflow: hidden;
+    color: #000000;
+    width: 70%;
+}
+#datakomentarza{
+    overflow: hidden;
+    width: 10%;
+}

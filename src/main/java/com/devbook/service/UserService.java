@@ -31,7 +31,7 @@ public class UserService {
        return this.getCurrentlyLoggedUser().get_id();
     }
 
-    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus, String headerImageUrl, String profileImageUrl) {
+    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentStatus, String headerImageUrl, String profileImageUrl) {
         User user = this.getCurrentlyLoggedUser();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -42,8 +42,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-
-    public List<User> getCurrentlyLoggedUserFriendList() {
+    private List<User> getCurrentlyLoggedUserFriendList() {
         User currentlyLoggedUser = userRepository.findBy_id(this.getCurrentlyLoggedUser().get_id());
         return userRepository.findBy_id(currentlyLoggedUser.getFriendsList());
     }
@@ -65,7 +64,7 @@ public class UserService {
         return userRepository.findBy_id(id);
     }
 
-    public void saveUser(User user){
+    void saveUser(User user){
         userRepository.save(user);
     }
 }

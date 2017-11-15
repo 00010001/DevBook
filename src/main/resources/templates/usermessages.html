@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DevBook</title>
+
+    <div th:replace="fragments/header :: head"/>
+
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"/>
+
+<div class="container">
+
+    <div class="col">
+        <br/>
+        <h2>Received</h2>
+        <!--//START-->
+        <div th:each="message : ${messages}">
+
+            <!--start ifu-->
+            <div th:if="${message.getSenderId() != currentUserId}" th:remove="tag">
+            <form th:action="@{/user/sendmessage}" method="post">
+                <div class="row">
+                    <div class="col-1">
+                        <img class="card-img-top" th:src="${message.getSenderProfileImageUrl()}"/>
+                    </div>
+
+                    <div class="col-2">
+                        <span th:text="${message.getSenderFirstName() + ' ' + message.getSenderLastName()}"></span>
+                        <br/>
+                        <b><span th:text="${message.getDateString()}"></span> </b>
+                    </div>
+
+                    <div class="col-8">
+                        <textarea class="form-control" id="message" rows="3"
+                                  disabled="disabled"><span th:remove="tag"
+                                                            th:text="${message.getMessageBody()}"></span>
+                        </textarea>
+                    </div>
+                    <input type="hidden" th:value="${message.getMessageBody()}" name="message"/>
+                    <input type="hidden" th:value="${message.getSenderId()}" name="targetUserId"/>
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-dark btn-sm">Reply</button>
+                        <!--TODO delete message-->
+                    </div>
+                </div>
+            </form>
+            </div>
+            <!--koneic ifu-->
+
+        </div>
+        <!--//Koniec-->
+
+        <br/>
+        <h2>Send</h2>
+
+        <!--//START-->
+        <div th:each="message : ${messages}">
+
+            <!--start ifu-->
+            <div th:if="${message.getSenderId() == currentUserId}" th:remove="tag">
+                <form th:action="@{/user/sendmessage}" method="post">
+                    <div class="row">
+                        <div class="col-1">
+                            <img class="card-img-top" th:src="${message.getSenderProfileImageUrl()}"/>
+                        </div>
+
+                        <div class="col-2">
+                            <span th:text="${message.getSenderFirstName() + ' ' + message.getSenderLastName()}"></span>
+                            <br/>
+                            <b><span th:text="${message.getDateString()}"></span> </b>
+                        </div>
+
+                        <div class="col-8">
+                        <textarea class="form-control" id="message" rows="3"
+                                  disabled="disabled"><span th:remove="tag"
+                                                            th:text="${message.getMessageBody()}"></span>
+                        </textarea>
+                        </div>
+                        <input type="hidden" th:value="${message.getMessageBody()}" name="message"/>
+                        <input type="hidden" th:value="${message.getSenderId()}" name="targetUserId"/>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-dark btn-sm">Reply</button>
+                            <!--TODO delete message-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--koneic ifu-->
+
+        </div>
+        <!--//Koniec-->
+
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

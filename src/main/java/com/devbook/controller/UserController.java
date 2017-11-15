@@ -2,6 +2,7 @@ package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
 import com.devbook.model.Skill;
+import com.devbook.model.Message;
 import com.devbook.model.User;
 import com.devbook.service.AddToFriendsService;
 import com.devbook.service.PostService;
@@ -27,15 +28,17 @@ public class UserController {
     private AddToFriendsService addToFriendsService;
     private UserService userService;
     private PostService postService;
+    private MessageService messageService;
 
     //TODO fix searching case sensivity
     //TODO w restowym api jest jeden search controller i jest robione z parametrami metody
     @Autowired
-    public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService) {
+    public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService, MessageService messageService) {
         this.searchUserService = searchUserService;
         this.addToFriendsService = addToFriendsService;
         this.userService = userService;
         this.postService = postService;
+        this.messageService = messageService;
     }
 
 
@@ -71,10 +74,57 @@ public class UserController {
 
         List<FriendRequest> friendRequestList = addToFriendsService.getFriendRequestList();
 
-
         model.addAttribute("friendRequestsList", friendRequestList);
         return new ModelAndView("userFriendRequests");
     }
+
+    //---Messages Start
+
+
+    //SLUSZY DO WYSYLANIA WIADOMOSCI BEZPOSREDNIO ZE STRONY OBCEGO UZYTKOWNIKA
+    @GetMapping("/user/sendmessage")
+    public ModelAndView sendMessagePage(@RequestParam("user") String userId, Model model) {
+        model.addAttribute("targetUser", userService.getUserById(userId));
+        model.addAttribute("targetUserId", userId);
+        return new ModelAndView("usersendmessage");
+    }
+
+    //SLUZY DO WYSYLANIA WIADOMOSCI ZE STRONY WIADOMOSCI USERA
+    @PostMapping("/user/sendmessage")
+    public ModelAndView sendMessagePage2(
+            @RequestParam("targetUserId") String targetUserId,
+            @RequestParam("message") String message,
+            Model model) {
+        model.addAttribute("targetUser", userService.getUserById(targetUserId));
+        model.addAttribute("targetUserId", targetUserId);
+        model.addAttribute("messageBody", message);
+        return new ModelAndView("usersendmessage");
+    }
+
+    //WYSYLA FIZYCZNIE WIADOMOSC
+    @PostMapping("/user/message")
+    public RedirectView sendMessage(
+            @RequestParam("targetUserId") String targetUserId,
+            @RequestParam("message") String message) {
+
+        Message myMessage = messageService.createMessage(targetUserId, message);
+        messageService.addMessageToSenderUserAndSave(myMessage);
+        messageService.addMessageToReceiverUserAndSave(myMessage);
+
+        return new RedirectView("/user");
+    }
+
+
+    //WYSWIETLA STRONE Z WIADOMOSCIAMI UZYTKOWNIKA
+    @GetMapping("/user/messages")
+    public ModelAndView userMessages(Model model) {
+        model.addAttribute("messages", messageService.getCurrentUserMessages());
+        model.addAttribute("currentUserId", userService.getCurrentlyLoggedUserId());
+        return new ModelAndView("usermessages");
+    }
+
+    //---Messages End
+
 
     // TODO "/user/friendrequests" z postem
 

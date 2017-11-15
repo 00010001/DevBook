@@ -26,8 +26,12 @@ public class UserService {
         String currentPrincipalEmail = authentication.getName();
         return userRepository.findByEmail(currentPrincipalEmail);
     }
+  
+  public String getCurrentlyLoggedUserId() {
+       return this.getCurrentlyLoggedUser().get_id();
+    }
 
-    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentStatus, String headerImageUrl, String profileImageUrl) {
+    public void updateCurrentUserProfile(String firstName, String lastName, String summary, String currentstatus, String headerImageUrl, String profileImageUrl) {
         User user = this.getCurrentlyLoggedUser();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -55,6 +59,13 @@ public class UserService {
 
     public void addSkill(User user, Skill skill){
         user.getSkills().add(skill);
+    }
+  
+    public User getUserById(String id){
+        return userRepository.findBy_id(id);
+    }
+
+    public void saveUser(User user){
         userRepository.save(user);
     }
 }

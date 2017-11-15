@@ -10,96 +10,110 @@
 
 <div th:replace="fragments/navbar :: navbar"/>
 
+<!--container start-->
 <div class="container">
-
-    <div class="col">
-        <br/>
-        <h2>Edit Profile</h2>
-        <form th:action="@{/user/updateprofile}" method="post">
-            <div class="form-group row">
-                <label for="firstname" class="col-sm-2 col-form-label">First Name</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="firstname" id="firstname"
-                           th:attr="value=${user.getFirstName()}"/>
-                </div>
-                <label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="lastname" id="lastname"
-                           th:attr="value=${user.getLastName()}"/>
-                </div>
+    <br/>
+    <h2>Edit Profile</h2>
+    <form th:action="@{/user/updateprofile}" method="post">
+        <!--ROW-->
+        <div class="form-group row">
+            <label for="firstname" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="firstname" id="firstname"
+                       th:attr="value=${user.getFirstName()}"/>
             </div>
-            <div class="form-group row">
-                    <label for="summary" class="col-sm-2 col-form-label">Summary</label>
-                    <div class="col-sm-10">
-
+            <label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="lastname" id="lastname"
+                       th:attr="value=${user.getLastName()}"/>
+            </div>
+        </div>
+        <!--ROW-->
+        <div class="form-group row">
+            <label for="summary" class="col-sm-2 col-form-label">Summary</label>
+            <div class="col-sm-10">
                         <textarea class="form-control" name="summary" id="summary" rows="3"><span th:remove="tag"
                                                                                                   th:text="${user.getSummary()}"></span></textarea>
-                    </div>
             </div>
-
-            <div class="form-group row">
-                    <label for="currentstatus" class="col-sm-2 col-form-label">Current Status</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="currentstatus" id="currentstatus"
-                               th:attr="value=${user.getCurrentStatus()}"/>
-                    </div>
+        </div>
+        <!--ROW-->
+        <div class="form-group row">
+            <label for="currentstatus" class="col-sm-2 col-form-label">Current Status</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="currentstatus" id="currentstatus"
+                       th:attr="value=${user.getCurrentStatus()}"/>
             </div>
-
-            <div class="form-group row">
-                <label for="headerImageUrl" class="col-sm-2 col-form-label">Header Image Url</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="headerImageUrl" id="headerImageUrl"
-                           th:attr="value=${user.getHeaderImageUrl()}"/>
-                </div>
+        </div>
+        <!--ROW-->
+        <div class="form-group row">
+            <label for="headerImageUrl" class="col-sm-2 col-form-label">Header Image Url</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="headerimageurl" id="headerImageUrl"
+                       th:attr="value=${user.getHeaderImageUrl()}"/>
             </div>
-
-            <div class="form-group row">
-                <label for="profileImageUrl" class="col-sm-2 col-form-label">Profile Image Url</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="profileImageUrl" id="profileImageUrl"
+        </div>
+        <!--ROW-->
+        <div class="form-group row">
+            <label for="profileImageUrl" class="col-sm-2 col-form-label">Profile Image Url</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="profileimageurl" id="profileImageUrl"
                        th:attr="value=${user.getProfileImageUrl()}"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    <br/>
+    <h2>Skills</h2>
+
+    <!--LIST SKills start-->
+
+    <form action="#" method="post">
+
+        <div th:each="skill : ${user.getSkills()}">
+
+            <div class="form-group row">
+
+                <div class="col-sm-10">
+
+                    <input type="text" class="form-control"
+                           th:attr="value=${skill.getSkillName()}"/>
+                    <input type="text" class="form-control"
+                           th:attr="value=${skill.getSkillDescription()}"/>
                 </div>
             </div>
 
+        </div>
 
+        <button type="submit" class="btn btn-primary">Update skills</button>
+    </form>
 
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+    <!--LIST SKills end-->
+    <br/>
+    <h3>Add New Skill</h3>
 
+    <!--ADD SKILL start-->
+    <form th:action="@{/user/addSkill}" method="post">
 
-
-        <form th:action="@{/user/addSkill}" method="post">
-            <label for="addSkill" class="col-sm-2 col-form-label">Add Skill</label>
+        <div class="form-group row">
+            <label for="skillName" class="col-sm-2 col-form-label">Skill Name</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="skillName" id="skillName"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="skillDescription" class="col-sm-2 col-form-label">Skill Description</label>
+            <div class="col-sm-10">
                 <input type="text" class="form-control" name="skillDescription" id="skillDescription"/>
             </div>
-            <button type="submit" class="btn btn-primary">Add skill</button>
-        </form>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Add skill</button>
+            </div>
+        </div>
+    </form>
 
-
-
-        <form th:action="@{/user/updateSkills}" method="post">
-
-            <label for="skills" class="col-sm-2 col-form-label">Skills</label>
-            <tr th:each="skill : ${user.getSkills()}">
-
-                <div class="form-group row">
-
-                     <div class="col-sm-10">
-
-                         <input type="text" class="form-control" name="skills" id="skills"
-                                th:attr="value=${skill.getSkillName()}"/>
-                         <input type="text" class="form-control" name="skills" id="skills"
-                                th:attr="value=${skill.getSkillDescription()}"/>
-                     </div>
-                </div>
-
-            </tr>
-
-            <button type="submit" class="btn btn-primary">Upadte skills</button>
-        </form>
-    </div>
+    <!--ADD skill end-->
 
 </div>
 <!-- /.container -->

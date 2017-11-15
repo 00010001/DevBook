@@ -1,8 +1,8 @@
 package com.devbook.controller;
 
 import com.devbook.model.FriendRequest;
-import com.devbook.model.Skill;
 import com.devbook.model.Message;
+import com.devbook.model.Skill;
 import com.devbook.model.User;
 import com.devbook.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,7 @@ public class UserController {
 
     //TODO fix searching case sensivity
     //TODO w restowym api jest jeden search controller i jest robione z parametrami metody
+
     @Autowired
     public UserController(SearchUserService searchUserService, AddToFriendsService addToFriendsService, UserService userService, PostService postService, MessageService messageService) {
         this.searchUserService = searchUserService;
@@ -37,7 +38,6 @@ public class UserController {
         this.postService = postService;
         this.messageService = messageService;
     }
-
 
     // TODO w adminie wszyscy userzy + opcje filtrowania to co jest teraz to ma byc ponizej w user/id
 
@@ -145,47 +145,35 @@ public class UserController {
 
     @GetMapping("/user/edit")
     public ModelAndView userEditor(Model model) {
-        User user = userService.getCurrentlyLoggedUser();
+        User user = userService.getUserById(userService.getCurrentlyLoggedUserId());
         model.addAttribute("user", user);
         return new ModelAndView("userEditProfile");
     }
 
     //TODO /user put -> put to znaczy update
-
-    @PostMapping("user/updateProfile")
-    public RedirectView updateProfile(@RequestParam("firstName") String firstName,
-                                      @RequestParam("lastName") String lastName,
+    @PostMapping("user/updateprofile")
+    public RedirectView updateProfile(@RequestParam("firstname") String firstName,
+                                      @RequestParam("lastname") String lastName,
                                       @RequestParam("summary") String summary,
-                                      @RequestParam("currentStatus") String currentStatus,
-                                      @RequestParam("headerImageUrl") String headerImageUrl,
-                                      @RequestParam("profileImageUrl") String profileImageUrl){
-// cofnac to co napisalas bo wtedy to co jest nad tym co robisz przestanie dzialac!!!!
+                                      @RequestParam("currentstatus") String currentStatus,
+                                      @RequestParam("headerimageurl") String headerImageUrl,
+                                      @RequestParam("profileimageurl") String profileImageUrl) {
 
         userService.updateCurrentUserProfile(firstName, lastName, summary, currentStatus, headerImageUrl, profileImageUrl);
-        return new RedirectView("/user");
+        return new RedirectView("/user/edit");
     }
 
     @PostMapping("user/addSkill")
     public RedirectView addSkill(@RequestParam("skillName") String skillName,
-                                 @RequestParam("skillDescription") String skillDescription){
-        System.out.println(skillName);
-        System.out.println(skillDescription);
+                                 @RequestParam("skillDescription") String skillDescription) {
+
         Skill skill = new Skill();
         skill.setSkillDescription(skillDescription);
         skill.setSkillName(skillName);
         User user = userService.getCurrentlyLoggedUser();
         userService.addSkill(user, skill);
-   //     potem wywolujemy motede w user service ktora ta metoda wywowla z user serwice
-        // inna metode ktora juz jest ktora wywola aktualnego uzytkownika z ktorej pobierzemy
-        // liste jego skilli i do ktorej dodamy nowy skill po czym na koncu wezwiemy
-        // user repository i zpaiszemy usera zeby zachowac zmainy
-
 
         return new RedirectView("/user/edit");
     }
-
-//TODO tutaj trzeba dorobic id do skillow zeby edytowac kazdy z osobna
-    //tutaj robisz drugi kontroller update skills ktory analogicznie
-
 
 }

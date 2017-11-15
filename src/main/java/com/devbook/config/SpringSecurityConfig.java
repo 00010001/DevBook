@@ -26,8 +26,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -50,7 +48,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
 
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -67,6 +64,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
     @Bean
     public Md5PasswordEncoder passwordEncoder() throws Exception {
         return new Md5PasswordEncoder();

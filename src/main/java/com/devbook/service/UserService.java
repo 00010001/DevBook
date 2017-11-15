@@ -58,6 +58,7 @@ public class UserService {
 
     public void addSkill(User user, Skill skill){
         user.getSkills().add(skill);
+        saveUser(user);
     }
   
     public User getUserById(String id){
